@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-15T03:22:49Z",
+ "updated": "2026-11-15T04:51:13Z",
  "new_days": 7,
  "max_years": 3,
  "jobs": [
@@ -754,7 +754,7 @@
    "group": "labs",
    "ok": true,
    "careers": "https://www.anthropic.com/careers",
-   "listed": 670,
+   "listed": 669,
    "kept": 2
   },
   {
