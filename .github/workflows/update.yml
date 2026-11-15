@@ -1,0 +1,76 @@
+name: Update jobs board
+
+on:
+  schedule:
+    - cron: "23 5 * * *"        # every day at 05:23 UTC, before the UK working day
+  workflow_dispatch:             # the "Run workflow" button on the Actions tab
+  push:
+    branches: [main]
+    paths:
+      - "site/**"
+      - "scripts/**"
+      - "sources.json"
+      - ".github/workflows/update.yml"
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: jobs-board
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Collect vacancies
+        shell: bash
+        run: |
+          python scripts/collect.py | tee collect.log
+          {
+            echo "### Vacancy collection"
+            echo '```'
+            cat collect.log
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Keep the audit list (every UK or remote advert and why it was kept or dropped)
+        uses: actions/upload-artifact@v7
+        with:
+          name: audit
+          path: audit.tsv
+          retention-days: 14
+
+      - name: Save the updated list
+        shell: bash
+        run: |
+          git config user.name "jobs-board-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add site/data/jobs.json
+          if git diff --cached --quiet; then
+            echo "No change in the list."
+          else
+            git commit -m "Update vacancies $(date -u +%F)"
+            git pull --rebase --autostash
+            git push
+          fi
+
+      - uses: actions/configure-pages@v6
+
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: site
+
+      - id: deploy
+        uses: actions/deploy-pages@v5

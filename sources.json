@@ -1,0 +1,40 @@
+{
+  "_how_to_edit": [
+    "Each entry is one employer whose public careers feed is read every morning.",
+    "name    - shown on the page.",
+    "group   - labs | thinktank | government | industry | academia.",
+    "focus   - 'ai' if the whole organisation works on AI (every economics, policy or research role is kept);",
+    "          'general' if not (the advert itself must be about AI, technology or digital markets).",
+    "ats     - which careers system the employer uses: greenhouse | ashby | lever | workable | recruitee | smartrecruiters | workday | rss.",
+    "token   - the employer's name in that system, i.e. the last part of its careers address,",
+    "          e.g. job-boards.greenhouse.io/anthropic -> anthropic, jobs.ashbyhq.com/openai -> openai.",
+    "careers - the page students can browse themselves.",
+    "Add \"disabled\": true to switch an employer off without deleting it."
+  ],
+  "sources": [
+    {"name": "Anthropic", "group": "labs", "focus": "ai", "ats": "greenhouse", "token": "anthropic", "careers": "https://www.anthropic.com/careers"},
+    {"name": "OpenAI", "group": "labs", "focus": "ai", "ats": "ashby", "token": "openai", "careers": "https://openai.com/careers"},
+    {"name": "Cohere", "group": "labs", "focus": "ai", "ats": "ashby", "token": "cohere", "careers": "https://jobs.ashbyhq.com/cohere"},
+    {"name": "ElevenLabs", "group": "labs", "focus": "ai", "ats": "ashby", "token": "elevenlabs", "careers": "https://jobs.ashbyhq.com/elevenlabs"},
+    {"name": "Synthesia", "group": "labs", "focus": "ai", "ats": "ashby", "token": "synthesia", "careers": "https://jobs.ashbyhq.com/synthesia"},
+    {"name": "Faculty", "group": "labs", "focus": "ai", "ats": "ashby", "token": "faculty", "careers": "https://jobs.ashbyhq.com/faculty"},
+    {"name": "Perplexity", "group": "labs", "focus": "ai", "ats": "ashby", "token": "perplexity", "careers": "https://jobs.ashbyhq.com/perplexity"},
+    {"name": "Wayve", "group": "labs", "focus": "ai", "ats": "ashby", "token": "wayve", "careers": "https://jobs.ashbyhq.com/wayve"},
+    {"name": "Scale AI", "group": "labs", "focus": "ai", "ats": "greenhouse", "token": "scaleai", "careers": "https://job-boards.greenhouse.io/scaleai"},
+    {"name": "Stability AI", "group": "labs", "focus": "ai", "ats": "greenhouse", "token": "stabilityai", "careers": "https://job-boards.greenhouse.io/stabilityai"},
+    {"name": "Isomorphic Labs", "group": "labs", "focus": "ai", "ats": "greenhouse", "token": "isomorphiclabs", "careers": "https://job-boards.greenhouse.io/isomorphiclabs"},
+    {"name": "Harvey", "group": "labs", "focus": "ai", "ats": "ashby", "token": "harvey", "careers": "https://jobs.ashbyhq.com/harvey"},
+    {"name": "Tractable", "group": "labs", "focus": "ai", "ats": "ashby", "token": "tractable", "careers": "https://jobs.ashbyhq.com/tractable"},
+
+    {"name": "AI Security Institute", "group": "government", "focus": "ai", "ats": "greenhouse", "token": "aisi", "careers": "https://www.aisi.gov.uk/careers"},
+
+    {"name": "Nesta", "group": "thinktank", "focus": "general", "ats": "greenhouse", "token": "nesta", "careers": "https://job-boards.greenhouse.io/nesta"},
+    {"name": "Pivotal Research", "group": "thinktank", "focus": "ai", "ats": "ashby", "token": "pivotal", "careers": "https://jobs.ashbyhq.com/pivotal"},
+    {"name": "FAR.AI", "group": "thinktank", "focus": "ai", "ats": "ashby", "token": "far.ai", "careers": "https://jobs.ashbyhq.com/far.ai"},
+    {"name": "BlueDot Impact", "group": "thinktank", "focus": "ai", "ats": "ashby", "token": "bluedot", "careers": "https://jobs.ashbyhq.com/bluedot"},
+    {"name": "Coefficient Giving", "group": "thinktank", "focus": "general", "ats": "ashby", "token": "coefficientgiving", "careers": "https://jobs.ashbyhq.com/coefficientgiving"},
+
+    {"name": "Spotify", "group": "industry", "focus": "general", "ats": "lever", "token": "spotify", "careers": "https://jobs.lever.co/spotify"},
+    {"name": "Palantir", "group": "industry", "focus": "general", "ats": "lever", "token": "palantir", "careers": "https://jobs.lever.co/palantir"}
+  ]
+}
