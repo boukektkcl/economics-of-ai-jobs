@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-15T05:09:02Z",
+ "updated": "2026-11-15T05:10:10Z",
  "new_days": 7,
  "max_years": 3,
  "jobs": [
@@ -589,7 +589,7 @@
    "ok": true,
    "careers": "https://www.aisafety.com/jobs",
    "listed": 166,
-   "kept": 5
+   "kept": 3
   },
   {
    "name": "AI Security Institute",
@@ -925,7 +925,7 @@
    "ok": true,
    "careers": "https://www.governance.ai/opportunities",
    "listed": 8,
-   "kept": 4
+   "kept": 2
   },
   {
    "name": "Coefficient Giving",
