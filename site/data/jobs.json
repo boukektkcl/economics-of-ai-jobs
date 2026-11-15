@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-15T05:10:10Z",
+ "updated": "2026-11-15T12:50:04Z",
  "new_days": 7,
  "max_years": 3,
  "jobs": [
@@ -676,7 +676,7 @@
    "group": "industry",
    "ok": true,
    "careers": "https://fticonsulting.wd108.myworkdayjobs.com/CompassLexeconCareers",
-   "listed": 29,
+   "listed": 28,
    "kept": 5
   },
   {
@@ -684,7 +684,7 @@
    "group": "industry",
    "ok": true,
    "careers": "https://job-boards.greenhouse.io/deliveroo",
-   "listed": 185,
+   "listed": 186,
    "kept": 0
   },
   {
@@ -748,7 +748,7 @@
    "group": "labs",
    "ok": true,
    "careers": "https://www.anthropic.com/careers",
-   "listed": 669,
+   "listed": 668,
    "kept": 2
   },
   {
@@ -820,7 +820,7 @@
    "group": "labs",
    "ok": true,
    "careers": "https://openai.com/careers",
-   "listed": 839,
+   "listed": 840,
    "kept": 0
   },
   {
