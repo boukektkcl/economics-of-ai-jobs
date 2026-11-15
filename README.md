@@ -18,6 +18,8 @@ A public page of early-career jobs, internships and fellowships in the economics
 3. **Role**: economics, policy, research and analysis roles.
 4. **AI focus**: at employers that are not AI organisations, the advert itself has to be about AI, technology or digital markets.
 
+After filtering, the script opens every advert link. It removes adverts that have been taken down, say they are closed, or are past their deadline, and it reads the advert page for a posting date and deadline when the employer's feed gives none. `links.tsv` in each run's `audit` download shows the result for every advert.
+
 The word lists behind each filter are near the top of the "filters" section in `scripts/collect.py`.
 
 ## Common changes

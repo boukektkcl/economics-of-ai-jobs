@@ -284,6 +284,7 @@ def workday(src: dict) -> list[dict]:
                 info = (fetch_json(api + p, headers={"Accept": "application/json"})
                         .get("jobPostingInfo") or {})
                 job["posted"] = iso_date(info.get("startDate")) or job.get("posted")
+                job["closes"] = iso_date(info.get("endDate")) or job.get("closes")
                 return to_text(info.get("jobDescription"))
 
             where_text = j.get("locationsText") or ""
@@ -780,33 +781,42 @@ MONTHS = ["january", "february", "march", "april", "may", "june", "july",
           "august", "september", "october", "november", "december"]
 _MON = r"(jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|jul(?:y)?|" \
        r"aug(?:ust)?|sep(?:t(?:ember)?)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)"
+# A deadline is a date that follows a closing phrase in the same sentence.
+# "until" only counts next to an application word, so that "a fixed-term
+# contract until 31 March" is not read as a deadline.
 CLOSING = rx(r"(?:clos(?:es|ing)|deadline|apply by|applications? (?:are )?due|"
-             r"applications? (?:will )?close|submit(?:ted)? by|until)"
-             r"[^.\n]{0,70}?(?:(\d{1,2})(?:st|nd|rd|th)?(?: of)?\s+" + _MON +
-             r"\.?,?\s*(\d{4})?|" + _MON + r"\.?\s+(\d{1,2})(?:st|nd|rd|th)?,?\s*(\d{4})?)")
+             r"applications? (?:will |have |are |were )?(?:now )?closed?|submit(?:ted)? by|"
+             r"(?:open|accept\w+|considered|received|apply|applications?)[^.\n]{0,40}?\buntil)"
+             r"[^.\n]{0,70}?(?:(?<!\d)(\d{1,2})(?:st|nd|rd|th)?(?: of)?\s+" + _MON +
+             r"\.?,?\s*(\d{4})?|" + _MON + r"\.?\s+(\d{1,2})(?!\d)(?:st|nd|rd|th)?,?\s*(\d{4})?)")
 
 
 def closing_date(text: str) -> str | None:
-    m = CLOSING.search(text)
-    if not m:
-        return None
-    if m.group(1):
-        day, mon, year = m.group(1), m.group(2), m.group(3)
-    else:
-        mon, day, year = m.group(4), m.group(5), m.group(6)
-    month = next(i for i, name in enumerate(MONTHS, 1) if name.startswith(mon.lower()[:3]))
-    try:
-        if year:
-            date = dt.date(int(year), month, int(day))
+    """The application deadline stated in an advert, as YYYY-MM-DD. A deadline
+    that has already passed is returned too, so the advert can be dropped.
+    When an advert gives several dates, the next one still open wins."""
+    found = []
+    for m in CLOSING.finditer(text or ""):
+        if m.group(1):
+            day, mon, year = m.group(1), m.group(2), m.group(3)
         else:
-            date = dt.date(TODAY.year, month, int(day))
-            if date < TODAY - dt.timedelta(days=30):
-                date = dt.date(TODAY.year + 1, month, int(day))
-    except ValueError:
+            mon, day, year = m.group(4), m.group(5), m.group(6)
+        month = next(i for i, name in enumerate(MONTHS, 1) if name.startswith(mon.lower()[:3]))
+        try:
+            if year:
+                date = dt.date(int(year), month, int(day))
+            else:
+                date = dt.date(TODAY.year, month, int(day))
+                if date < TODAY - dt.timedelta(days=60):
+                    date = dt.date(TODAY.year + 1, month, int(day))
+        except ValueError:
+            continue
+        if TODAY - dt.timedelta(days=180) <= date <= TODAY + dt.timedelta(days=240):
+            found.append(date)
+    if not found:
         return None
-    if TODAY <= date <= TODAY + dt.timedelta(days=240):
-        return date.isoformat()
-    return None
+    ahead = [d for d in found if d >= TODAY]
+    return (min(ahead) if ahead else max(found)).isoformat()
 
 
 ROLE_HEADINGS = rx(r"^(about the (role|job|position|team|opportunity|fellowship|programme|program)|"
@@ -905,6 +915,16 @@ def assess(job: dict, src: dict) -> tuple[dict | None, str]:
     if src["group"] == "academia" and not core:
         return None, "role"
 
+    # The deadline: the employer's own feed field first, then the advert text.
+    today = TODAY.isoformat()
+    feed_closes, text_closes = job.get("closes"), closing_date(text)
+    closes = feed_closes or text_closes
+    if closes and closes < today:
+        return None, "deadline passed"
+    posted = job.get("posted")
+    if posted and posted > today:
+        posted = None
+
     salary = (job.get("salary") or "").strip()
     if not salary:
         m = SALARY.search(text)
@@ -920,8 +940,10 @@ def assess(job: dict, src: dict) -> tuple[dict | None, str]:
         "where": where["where"],
         "location": where["label"],
         "url": job["url"],
-        "posted": job.get("posted"),
-        "closes": job.get("closes") or closing_date(text),
+        "posted": posted,
+        "closes": closes,
+        "_closes_feed": feed_closes or "",
+        "_closes_text": text_closes or "",
         "salary": salary[:80],
         "kind": kind(title, job.get("employment") or ""),
         "level": job.get("level_hint") or level(title, years),
@@ -1018,6 +1040,166 @@ def merge_duplicates(records: list[dict]) -> list[dict]:
     return list(merged.values())
 
 
+# -------------------------------------------------------------- link checks --
+# Every vacancy that passed the filters has its advert opened, as a student
+# pressing the button would. Adverts that have been taken down or have closed
+# are removed. The advert page is also read for a posting date and a deadline
+# when the employer's feed gave none.
+
+CLOSED_PAGE = rx(
+    r"no longer (available|accepting|open|active|advertised|taking|exists?|live)|"
+    r"(position|role|vacancy|job|posting|opportunity|opening) (has|is|was) "
+    r"(now )?(been )?(filled|closed|removed|expired|withdrawn)|"
+    r"applications? (are|have|is|has) (now )?(been )?closed|"
+    r"(job|page|posting|vacancy) (was |could |can)?not (be )?found|"
+    r"(job|vacancy|posting|advert) (has )?expired|"
+    r"page (you (are|were) looking for )?(doesn.t|does not) exist")
+
+
+def open_page(url: str, timeout: int = 30) -> tuple[int, str, str]:
+    """Open an advert. Returns (HTTP status, final address, page source).
+    Status 0 means the site could not be reached."""
+    hdrs = {"User-Agent": USER_AGENT, "Accept-Language": "en-GB,en;q=0.9",
+            "Accept": "text/html,application/xhtml+xml,*/*;q=0.8"}
+    safe = urllib.parse.quote(url, safe=":/?#[]@!$&'()*+,;=%~")
+    status, final, body = 0, url, ""
+    for attempt in range(2):
+        try:
+            req = urllib.request.Request(safe, headers=hdrs)
+            with urllib.request.urlopen(req, timeout=timeout) as resp:
+                return (resp.status, resp.geturl(),
+                        resp.read(2_000_000).decode("utf-8", "replace"))
+        except urllib.error.HTTPError as err:
+            status, final = err.code, (err.geturl() or url)
+            try:
+                body = err.read(200_000).decode("utf-8", "replace")
+            except Exception:
+                body = ""
+            if err.code in (401, 403, 404, 410):
+                break
+        except Exception:
+            status = 0
+        time.sleep(3)
+    return status, final, body
+
+
+def moved_away(url: str, final: str) -> bool:
+    """True when the advert's address redirects to a general careers page,
+    which is what most sites do once a vacancy is taken down."""
+    if final.split("#")[0].rstrip("/") == url.split("#")[0].rstrip("/"):
+        return False
+    a, b = urllib.parse.urlsplit(url), urllib.parse.urlsplit(final)
+    if re.search(r"(^|&)(error|not_?found|expired)=", b.query, re.I):
+        return True
+    last = a.path.rstrip("/").rsplit("/", 1)[-1].lower()
+    if last and last in final.lower():
+        return False
+    return len(b.path.strip("/").split("/")) < len(a.path.strip("/").split("/"))
+
+
+def job_posting_meta(doc: str) -> tuple[str | None, str | None]:
+    """(datePosted, validThrough) from the JobPosting data that many advert
+    pages embed for search engines."""
+    for block in re.findall(r"(?is)<script[^>]*type=[\"']application/ld\+json[\"'][^>]*>"
+                            r"(.*?)</script>", doc):
+        try:
+            data = json.loads(block.strip(), strict=False)
+        except Exception:
+            try:
+                data = json.loads(html.unescape(block.strip()), strict=False)
+            except Exception:
+                continue
+        stack = [data]
+        while stack:
+            node = stack.pop()
+            if isinstance(node, list):
+                stack.extend(node)
+            elif isinstance(node, dict):
+                kind_ = node.get("@type")
+                if kind_ == "JobPosting" or (isinstance(kind_, list) and "JobPosting" in kind_):
+                    return iso_date(node.get("datePosted")), iso_date(node.get("validThrough"))
+                stack.extend(v for v in node.values() if isinstance(v, (list, dict)))
+    return None, None
+
+
+def check_link(r: dict) -> dict:
+    out = {"verdict": "ok", "detail": "", "page_posted": "", "valid_through": "",
+           "page_closes": ""}
+    try:
+        status, final, doc = open_page(r["url"])
+    except Exception as err:
+        out.update(verdict="unchecked", detail=f"could not open: {str(err)[:80]}")
+        return out
+    out["detail"] = f"HTTP {status}"
+    if status in (404, 410):
+        out.update(verdict="removed", detail=f"advert page answers {status}")
+        return out
+    if status == 0 or status >= 400:
+        out.update(verdict="unchecked",
+                   detail=f"site answered {status}" if status else "site did not answer")
+        return out
+    if moved_away(r["url"], final):
+        out.update(verdict="removed", detail=f"redirects to {final[:140]}")
+        return out
+    visible = to_text(doc)
+    m = CLOSED_PAGE.search(visible)
+    if m:
+        snippet = re.sub(r"\s+", " ", visible[max(0, m.start() - 40): m.end() + 40])
+        out.update(verdict="removed", detail=f"advert page says: …{snippet}…")
+        return out
+    posted, through = job_posting_meta(doc)
+    out["page_posted"], out["valid_through"] = posted or "", through or ""
+    if not r.get("closes"):
+        out["page_closes"] = closing_date(page_text_after_heading(doc)[1]) or ""
+    return out
+
+
+def verify(records: list[dict], old_jobs: dict) -> list[dict]:
+    """Open every advert, drop the ones that are gone or closed, fill in
+    missing dates from the advert page, and write links.tsv."""
+    today = TODAY.isoformat()
+    with ThreadPoolExecutor(max_workers=8) as pool:
+        checks = list(pool.map(check_link, records))
+    for r, c in zip(records, checks):
+        if c["verdict"] == "ok":
+            if not r.get("posted") and c["page_posted"] and c["page_posted"] <= today:
+                r["posted"] = c["page_posted"]
+            if not r.get("closes") and c["page_closes"]:
+                r["closes"] = c["page_closes"]
+        if r.get("closes") and r["closes"] < today and c["verdict"] != "removed":
+            c.update(verdict="removed", detail=f"deadline passed on {r['closes']}")
+        if c["verdict"] == "ok":
+            r["checked"] = today
+        else:
+            r["checked"] = (old_jobs.get(r["id"]) or {}).get("checked")
+
+    removed = [c for c in checks if c["verdict"] == "removed"]
+    if len(records) >= 10 and len(removed) > len(records) / 2:
+        # More than half failing at once points to a fault in the check itself.
+        print(f"\nLink check wanted to remove {len(removed)} of {len(records)} vacancies; "
+              "that is implausible, so nothing was removed today.")
+        for c in removed:
+            c["verdict"] = "unchecked"
+
+    with open(ROOT / "links.tsv", "w", encoding="utf-8") as fh:
+        fh.write("verdict\tdetail\temployer\ttitle\tposted\tposted_on_page\tcloses\t"
+                 "closes_feed\tcloses_text\tcloses_on_page\tvalid_through\turl\n")
+        for r, c in zip(records, checks):
+            row = (c["verdict"], c["detail"], r["employer"], r["title"], r.get("posted") or "",
+                   c["page_posted"], r.get("closes") or "", r.get("_closes_feed", ""),
+                   r.get("_closes_text", ""), c["page_closes"], c["valid_through"], r["url"])
+            fh.write("\t".join(str(x).replace("\t", " ").replace("\n", " ") for x in row) + "\n")
+
+    count = {v: sum(1 for c in checks if c["verdict"] == v)
+             for v in ("ok", "unchecked", "removed")}
+    print(f"\nLink check: {count['ok']} adverts open, {count['unchecked']} could not be "
+          f"checked, {count['removed']} removed")
+    for r, c in zip(records, checks):
+        if c["verdict"] != "ok":
+            print(f"  {c['verdict']:<9} {r['employer']}: {r['title'][:60]}  [{c['detail'][:160]}]")
+    return [r for r, c in zip(records, checks) if c["verdict"] != "removed"]
+
+
 def main() -> int:
     config = json.loads(SOURCES_FILE.read_text(encoding="utf-8"))
     sources = [s for s in config["sources"] if not s.get("disabled")]
@@ -1059,13 +1241,16 @@ def main() -> int:
                        "kept": len(res["records"])})
 
     records = merge_duplicates(place_aggregated(records, sources))
+    records = verify(records, old_jobs)
     today = TODAY.isoformat()
     for r in records:
-        old = old_jobs.get(r["id"])
-        r["first_seen"] = (old or {}).get("first_seen") or today
-        if not r.get("posted"):
-            r["posted"] = r["first_seen"]
-    records.sort(key=lambda r: (r["posted"] or "", r["employer"]), reverse=True)
+        old = old_jobs.get(r["id"]) or {}
+        # `posted` stays empty when neither the feed nor the advert gives a
+        # date; the page then shows the day the vacancy first appeared here.
+        r["first_seen"] = old.get("first_seen") or today
+        for key in [k for k in r if k.startswith("_")]:
+            del r[key]
+    records.sort(key=lambda r: (r.get("posted") or r["first_seen"], r["employer"]), reverse=True)
 
     failed = [s["name"] for s in status if not s["ok"]]
     out = {
