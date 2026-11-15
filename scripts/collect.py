@@ -363,6 +363,9 @@ def aisafety(src: dict) -> list[dict]:
             continue
         if "doctoral" in facts.get("required degree", "").lower():
             continue
+        skills = facts.get("skillset", "")
+        if skills and not re.search(r"policy|strategy|research|data|finance", skills, re.I):
+            continue        # operations, engineering, security and similar
         blurb = re.search(r'(?s)<p class="paragraph-small[^"]*">(.*?)</p>', card)
         posted = None
         m = re.match(r"(\d{1,2}) (\w+) (\d{4})", facts.get("posted", ""))
@@ -612,6 +615,11 @@ SENIOR_TITLE = rx(
 # "Manager" titles usually need several years; they are kept only when the
 # advert itself states a requirement of MAX_YEARS years or less.
 MANAGER_TITLE = rx(r"\b(manager|management lead|team leader)\b")
+# Entry-level economics titles (used only for employers marked "economics").
+ECON_ENTRY = rx(
+    r"\b(econom\w*|econometric\w*|competition|antitrust|regulat\w+|polic(y|ies)|"
+    r"analyst|graduate|intern(ship)?|placement|consulting associate|"
+    r"research (analyst|assistant|associate))\b")
 JUNIOR_TITLE = rx(
     r"\b(graduate|junior|jr\.?|intern(ship)?|trainee|assistant|entry[- ]level|"
     r"apprentice(ship)?|early[- ]career|pre[- ]?doc(toral)?|placement|"
@@ -681,11 +689,12 @@ NEVER = rx(
     r"\b(engineer\w*|developer|architect|counsel|legal|lawyer|solicitor|"
     r"recruit\w*|sales|account (executive|manager)|marketing|design(er)?|"
     r"customer|solutions?|deployment|data governance|corporate governance|"
+    r"account management|business development|"
     r"insurance|claims|underwrit\w*|nurse|clinical|payroll|accountant)\b")
 # At AI companies, the only non-economics titles that are kept.
 COMPANY_ROLE = rx(
     r"\b(pricing|market (research|analysis|intelligence|insights?)|"
-    r"(strategy|research|insights?|data|business|market|operations research) analyst|"
+    r"(strategy|research|insights?|market|operations research) analyst|"
     r"strategy (associate|intern)|economic\w*|social impact|"
     r"research (assistant|associate) (,|-|–)? ?(econom|polic|societ))")
 # Titles that might be relevant, depending on the rest of the advert.
@@ -699,7 +708,7 @@ BROAD_ROLE = rx(
 OFF_TOPIC = rx(
     r"\b(engineer\w*|developer|software|devops|sre|architect|infrastructure|"
     r"full[- ]?stack|front[- ]?end|back[- ]?end|machine learning|\bml\b|"
-    r"research scientist|member of technical staff|interpretability|"
+    r"research scientists?|member of technical staff|interpretability|"
     r"red team\w*|security|cyber\w*|sales|account (executive|manager|director)|"
     r"business development|bdr|sdr|customer|solutions?|recruit\w*|talent|"
     r"people (partner|ops|operations)|human resources|\bhr\b|payroll|"
@@ -712,7 +721,9 @@ OFF_TOPIC = rx(
     r"data cent(er|re) (technician|operations)|supply chain|procurement|"
     r"physician|clinical|nurse|biolog\w*|chemist\w*|physics|wet lab|"
     r"annotat\w*|linguist\w*|translator|tutor|voice|actor|"
-    r"gtm|go[- ]to[- ]market|expressions? of interest|"
+    r"gtm|go[- ]to[- ]market|expressions? of interest|cx|teacher|"
+    r"technical (analyst|specialist)|m365|microsoft 365|service desk|"
+    r"systems? (analyst|administrator)|talent pool|"
     r"product manager|product owner|scrum|qa|quality assurance|tester|"
     r"finance (manager|business partner)|fp&a|controller|"
     r"partnerships?|deployment|implementation|enablement|support)\b")
@@ -885,6 +896,10 @@ def assess(job: dict, src: dict) -> tuple[dict | None, str]:
             return None, "not about AI"
         elif mentions >= need and (core or JUNIOR_TITLE.search(title)):
             focus = "AI-related"
+        elif src.get("economics") and ECON_ENTRY.search(title) and JUNIOR_TITLE.search(title):
+            # Entry-level economics roles at economic consultancies and
+            # regulators are listed too, labelled as not specific to AI.
+            focus = "Economics"
         else:
             return None, "not about AI"
     if src["group"] == "academia" and not core:

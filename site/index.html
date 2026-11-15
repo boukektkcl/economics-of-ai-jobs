@@ -245,10 +245,10 @@ footer a { color: var(--white); }
     <div>
       <h2>How the list is made</h2>
       <ul>
-        <li>Every morning a script reads the public careers feeds of the employers listed below.</li>
+        <li>Every morning a script reads the public careers pages of the employers listed below, plus the AISafety.com jobs board.</li>
         <li>It keeps roles based in the UK, or remote and open to people living in the UK.</li>
         <li>It keeps economics, policy, research and analysis roles and drops senior titles, adverts asking for more than <span id="max-years">3</span> years' experience, and adverts that require a PhD.</li>
-        <li>At employers that are not AI organisations, the advert itself has to be about AI, technology or digital markets.</li>
+        <li>At employers that are not AI organisations, the advert itself has to be about AI, technology or digital markets. The exception is entry-level economist and analyst roles at economic consultancies and regulators, which are listed and labelled "Economics, not AI-specific".</li>
       </ul>
       <p style="margin-top:10px">The filtering is automatic, so the odd unsuitable role will get through and some good ones will be missed. A listing here is not an endorsement of the employer by King's College London.</p>
     </div>
@@ -281,7 +281,7 @@ footer a { color: var(--white); }
   var GROUP_COLOURS = { labs: "#0a2d50", thinktank: "#009ea0", government: "#e22319", industry: "#f6b910", academia: "#46b27e" };
   var WHERE = { London: "London", UK: "Elsewhere in the UK", Remote: "Remote" };
   var KINDS = ["Job", "Internship", "Fellowship or programme"];
-  var FOCUS = { "AI role": "AI is the job", "AI-related": "AI is part of the job" };
+  var FOCUS = { "AI role": "AI is the job", "AI-related": "AI is part of the job", "Economics": "Economics, not AI-specific" };
 
   var data = { jobs: [], sources: [], new_days: 7 };
   var state = { q: "", group: {}, where: {}, kind: {}, focus: {}, onlyNew: false, onlySaved: false, sort: "newest" };
