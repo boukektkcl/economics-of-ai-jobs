@@ -23,6 +23,7 @@ The word lists behind each filter are near the top of the "filters" section in `
 ## Common changes
 
 - **Add or remove an employer**: edit `sources.json` (instructions are at the top of the file). The page rebuilds within a few minutes of saving.
+- **Link straight to the general economics tab**: add `#economics` to the page address. Roles land on that tab when the collector labels them "Economics" (entry-level economist and analyst roles at sources marked `"economics": true` in `sources.json`).
 - **Refresh now**: Actions tab, "Update jobs board", "Run workflow".
 - **See why an advert was kept or dropped**: open the latest run on the Actions tab and download the `audit` file.
 - **Change the logo**: put the file at `site/assets/kcl-logo.svg` (or `.png`).

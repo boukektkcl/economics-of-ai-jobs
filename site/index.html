@@ -77,7 +77,20 @@ h1 { margin: 0; font: 700 clamp(2rem, 4.4vw, 3rem)/1.05 var(--display); text-wra
 .updated.stale::before { background: #f6b910; }
 
 /* ---------- page grid ---------- */
-.page { display: grid; grid-template-columns: 270px minmax(0, 1fr); gap: 32px; padding-block: 28px 56px; align-items: start; }
+.page { display: grid; grid-template-columns: 270px minmax(0, 1fr); gap: 22px 32px; padding-block: 22px 56px; align-items: start; }
+
+/* ---------- tabs: AI roles and general economics roles ---------- */
+.tabs { grid-column: 1 / -1; display: flex; gap: 6px; border-bottom: 2px solid var(--line); }
+.tab {
+  appearance: none; background: none; border: 0; border-bottom: 4px solid transparent; margin-bottom: -2px;
+  padding: 10px 18px; font: 700 1.25rem/1.2 var(--display); color: var(--slate); cursor: pointer;
+  display: flex; gap: 10px; align-items: center; text-align: left;
+}
+.tab:hover { color: var(--navy); }
+.tab[aria-selected="true"] { color: var(--navy); border-bottom-color: var(--red); }
+.tab .n { font: 600 .82rem/1 var(--body); background: var(--mist); color: var(--ink); border-radius: 99px; padding: 5px 10px; font-variant-numeric: tabular-nums; }
+.tab[aria-selected="true"] .n { background: var(--navy); color: var(--white); }
+.tab-note { margin: 0 0 16px; font-size: .94rem; color: var(--slate); max-width: 75ch; }
 .rail { position: sticky; top: 16px; background: var(--white); border: 1px solid var(--line); border-radius: 6px; padding: 18px; }
 .rail h2 { margin: 0 0 12px; font: 700 1.15rem/1.2 var(--display); color: var(--navy); }
 .rail-toggle { display: none; }
@@ -164,6 +177,7 @@ footer a { color: var(--white); }
   .masthead .wrap { flex-direction: column; align-items: flex-start; gap: 18px; padding-block: 22px 24px; }
   .brand img { height: 72px; }
   .job { grid-template-columns: 1fr; padding: 16px; }
+  .tab { flex: 1; padding: 10px 8px; font-size: 1.08rem; gap: 8px; }
   .actions { grid-column: 1; grid-row: auto; flex-direction: row; margin-top: 10px; min-width: 0; }
   .apply { flex: 1; }
   .updated { margin-left: 0; width: 100%; }
@@ -200,6 +214,11 @@ footer a { color: var(--white); }
 </div>
 
 <main class="wrap page">
+  <div class="tabs" role="tablist" aria-label="Kind of role">
+    <button class="tab" role="tab" type="button" id="tab-ai" data-tab="ai" aria-selected="true" aria-controls="results">AI roles <span class="n" id="n-tab-ai">–</span></button>
+    <button class="tab" role="tab" type="button" id="tab-economics" data-tab="economics" aria-selected="false" aria-controls="results" tabindex="-1">General economics roles <span class="n" id="n-tab-economics">–</span></button>
+  </div>
+
   <aside class="rail" id="rail" aria-label="Filter vacancies">
     <button class="rail-toggle" id="rail-toggle" type="button" aria-expanded="false" aria-controls="rail-body">
       <span>Filter vacancies</span><span id="rail-count" aria-hidden="true">+</span>
@@ -220,7 +239,8 @@ footer a { color: var(--white); }
     </div>
   </aside>
 
-  <section id="results" aria-live="polite">
+  <section id="results" role="tabpanel" aria-labelledby="tab-ai" aria-live="polite">
+    <p class="tab-note" id="tab-note"></p>
     <div class="bar">
       <h2 id="count">Vacancies</h2>
       <label class="sort">Sort by
@@ -248,7 +268,7 @@ footer a { color: var(--white); }
         <li>Every morning a script reads the public careers pages of the employers listed below, plus the AISafety.com jobs board.</li>
         <li>It keeps roles based in the UK, or remote and open to people living in the UK.</li>
         <li>It keeps economics, policy, research and analysis roles and drops senior titles, adverts asking for more than <span id="max-years">3</span> years' experience, and adverts that require a PhD.</li>
-        <li>At employers that are not AI organisations, the advert itself has to be about AI, technology or digital markets. The exception is entry-level economist and analyst roles at economic consultancies and regulators, which are listed and labelled "Economics, not AI-specific".</li>
+        <li>At employers that are not AI organisations, the advert itself has to be about AI, technology or digital markets. The exception is entry-level economist and analyst roles at economic consultancies and regulators, which sit on their own tab, "General economics roles".</li>
       </ul>
       <p style="margin-top:10px">The filtering is automatic, so the odd unsuitable role will get through and some good ones will be missed. A listing here is not an endorsement of the employer by King's College London.</p>
     </div>
@@ -283,8 +303,14 @@ footer a { color: var(--white); }
   var KINDS = ["Job", "Internship", "Fellowship or programme"];
   var FOCUS = { "AI role": "AI is the job", "AI-related": "AI is part of the job", "Economics": "Economics, not AI-specific" };
 
+  var TABS = {
+    ai: "Roles where AI is the job or a clear part of it: economics, policy, research and analysis at AI organisations, and AI-focused roles elsewhere.",
+    economics: "Entry-level economist and analyst roles at economic consultancies and regulators. These adverts are not about AI, but they draw on the same training."
+  };
+
   var data = { jobs: [], sources: [], new_days: 7 };
-  var state = { q: "", group: {}, where: {}, kind: {}, focus: {}, onlyNew: false, onlySaved: false, sort: "newest" };
+  var loaded = false;
+  var state = { tab: location.hash === "#economics" ? "economics" : "ai", q: "", group: {}, where: {}, kind: {}, focus: {}, onlyNew: false, onlySaved: false, sort: "newest" };
   var saved = {};
   try { saved = JSON.parse(localStorage.getItem("eoai-saved") || "{}") || {}; } catch (e) { saved = {}; }
 
@@ -330,13 +356,20 @@ footer a { color: var(--white); }
   })();
 
   /* ---- filters ---- */
+  function tabOf(j) { return j.focus === "Economics" ? "economics" : "ai"; }
+  function tabJobs() { return data.jobs.filter(function (j) { return tabOf(j) === state.tab; }); }
+
+  /* Options and their counts describe the open tab, so they are rebuilt on every tab change. */
   function buildOptions(fieldId, key, labels, order, colours) {
     var box = $(fieldId);
+    Array.prototype.slice.call(box.querySelectorAll("label")).forEach(function (n) { box.removeChild(n); });
+    var pool = tabJobs();
     order.forEach(function (value) {
-      var count = data.jobs.filter(function (j) { return j[key] === value; }).length;
-      if (!count) return;
+      var count = pool.filter(function (j) { return j[key] === value; }).length;
+      if (!count) { delete state[key][value]; return; }
       var label = el("label", "opt");
       var input = el("input"); input.type = "checkbox"; input.value = value;
+      input.checked = !!state[key][value];
       input.id = fieldId + "-" + value.replace(/\W+/g, "-");
       input.addEventListener("change", function () { state[key][value] = input.checked; render(); });
       label.appendChild(input);
@@ -345,11 +378,32 @@ footer a { color: var(--white); }
       label.appendChild(el("span", "n", String(count)));
       box.appendChild(label);
     });
-    if (box.querySelectorAll("label").length < 2) box.hidden = true;
+    box.hidden = box.querySelectorAll("label").length < 2;
+  }
+  function buildFilters() {
+    buildOptions("f-group", "group", GROUPS, Object.keys(GROUPS), GROUP_COLOURS);
+    buildOptions("f-where", "where", WHERE, Object.keys(WHERE));
+    buildOptions("f-kind", "kind", {}, KINDS);
+    buildOptions("f-focus", "focus", FOCUS, Object.keys(FOCUS));
+    counts();
   }
   function active(map) { return Object.keys(map).filter(function (k) { return map[k]; }); }
 
+  function showTab(name, fromHash) {
+    state.tab = TABS[name] ? name : "ai";
+    Object.keys(TABS).forEach(function (t) {
+      var on = t === state.tab, b = $("tab-" + t);
+      b.setAttribute("aria-selected", on ? "true" : "false");
+      b.tabIndex = on ? 0 : -1;
+    });
+    $("results").setAttribute("aria-labelledby", "tab-" + state.tab);
+    $("tab-note").textContent = TABS[state.tab];
+    if (!fromHash) { try { history.replaceState(null, "", state.tab === "ai" ? location.pathname + location.search : "#" + state.tab); } catch (e) {} }
+    if (loaded) { buildFilters(); render(); }
+  }
+
   function matches(j) {
+    if (tabOf(j) !== state.tab) return false;
     var sets = [["group", state.group], ["where", state.where], ["kind", state.kind], ["focus", state.focus]];
     for (var i = 0; i < sets.length; i++) {
       var on = active(sets[i][1]);
@@ -427,14 +481,15 @@ footer a { color: var(--white); }
   }
 
   function counts() {
-    var n = Object.keys(saved).filter(function (id) { return data.jobs.some(function (j) { return j.id === id; }); }).length;
-    $("n-saved").textContent = String(n);
+    var pool = tabJobs();
+    $("n-saved").textContent = String(pool.filter(function (j) { return saved[j.id]; }).length);
+    $("n-new").textContent = String(pool.filter(isNew).length);
   }
 
   function render() {
     var list = sorted(data.jobs.filter(matches));
     var box = $("jobs"); box.textContent = "";
-    var total = data.jobs.length;
+    var total = tabJobs().length;
     $("count").textContent = list.length === total
       ? total + (total === 1 ? " vacancy" : " vacancies")
       : list.length + " of " + total + " vacancies";
@@ -470,14 +525,16 @@ footer a { color: var(--white); }
   }
 
   function start(json) {
-    data = json; data.new_days = data.new_days || 7;
+    data = json; data.new_days = data.new_days || 7; loaded = true;
     data.jobs.forEach(function (j) {
       j.posted_exact = !!j.posted && j.posted !== j.first_seen;
       j.first_seen_or_posted = j.posted || j.first_seen;
     });
     $("stat-total").textContent = String(data.jobs.length);
     $("stat-new").textContent = String(data.jobs.filter(isNew).length);
-    $("n-new").textContent = String(data.jobs.filter(isNew).length);
+    Object.keys(TABS).forEach(function (t) {
+      $("n-tab-" + t).textContent = String(data.jobs.filter(function (j) { return tabOf(j) === t; }).length);
+    });
     var employers = {}; data.jobs.forEach(function (j) { employers[j.employer] = 1; });
     $("stat-employers").textContent = String(Object.keys(employers).length);
     if (data.max_years) $("max-years").textContent = String(data.max_years);
@@ -489,12 +546,19 @@ footer a { color: var(--white); }
       + ", " + when.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
     if (hours > 36) u.className = "updated stale";
 
-    buildOptions("f-group", "group", GROUPS, Object.keys(GROUPS), GROUP_COLOURS);
-    buildOptions("f-where", "where", WHERE, Object.keys(WHERE));
-    buildOptions("f-kind", "kind", {}, KINDS);
-    buildOptions("f-focus", "focus", FOCUS, Object.keys(FOCUS));
-    counts(); render(); renderSources();
+    showTab(state.tab, true); renderSources();
   }
+
+  Array.prototype.forEach.call(document.querySelectorAll(".tab"), function (b) {
+    b.addEventListener("click", function () { showTab(b.getAttribute("data-tab")); });
+    b.addEventListener("keydown", function (e) {
+      if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+      var other = state.tab === "ai" ? "economics" : "ai";
+      showTab(other); $("tab-" + other).focus();
+    });
+  });
+  window.addEventListener("hashchange", function () { showTab(location.hash === "#economics" ? "economics" : "ai", true); });
+  showTab(state.tab, true);
 
   $("q").addEventListener("input", function (e) { state.q = e.target.value.trim(); render(); });
   $("sort").addEventListener("change", function (e) { state.sort = e.target.value; render(); });
