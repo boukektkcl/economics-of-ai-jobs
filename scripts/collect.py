@@ -129,6 +129,7 @@ def greenhouse(src: dict) -> list[dict]:
             location=((j.get("location") or {}).get("name") or "").strip(),
             url=j.get("absolute_url") or "",
             posted=iso_date(j.get("first_published")),
+            closes=iso_date(j.get("application_deadline")),
             description=to_text(j.get("content")),
         ))
     return out
@@ -784,11 +785,14 @@ _MON = r"(jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|jul(?:y
 # A deadline is a date that follows a closing phrase in the same sentence.
 # "until" only counts next to an application word, so that "a fixed-term
 # contract until 31 March" is not read as a deadline.
-CLOSING = rx(r"(?:clos(?:es|ing)|deadline|apply by|applications? (?:are )?due|"
-             r"applications? (?:will |have |are |were )?(?:now )?closed?|submit(?:ted)? by|"
-             r"(?:open|accept\w+|considered|received|apply|applications?)[^.\n]{0,40}?\buntil)"
+_CLOSE_WORDS = (r"(?:clos(?:es|ing)|deadline|apply by|applications? (?:are )?due|"
+                r"applications? (?:will |have |are |were )?(?:now )?closed?|submit(?:ted)? by|"
+                r"(?:open|accept\w+|considered|received|apply|applications?)[^.\n]{0,40}?\buntil)")
+CLOSING = rx(_CLOSE_WORDS +
              r"[^.\n]{0,70}?(?:(?<!\d)(\d{1,2})(?:st|nd|rd|th)?(?: of)?\s+" + _MON +
              r"\.?,?\s*(\d{4})?|" + _MON + r"\.?\s+(\d{1,2})(?!\d)(?:st|nd|rd|th)?,?\s*(\d{4})?)")
+# "Closing Date: 18/12/2026". Read as day/month; skipped when it could be either.
+CLOSING_NUMERIC = rx(_CLOSE_WORDS + r"[^.\n\d]{0,40}?(?<!\d)(\d{1,2})[/.-](\d{1,2})[/.-](20\d{2})(?!\d)")
 
 
 def closing_date(text: str) -> str | None:
@@ -809,6 +813,16 @@ def closing_date(text: str) -> str | None:
                 date = dt.date(TODAY.year, month, int(day))
                 if date < TODAY - dt.timedelta(days=60):
                     date = dt.date(TODAY.year + 1, month, int(day))
+        except ValueError:
+            continue
+        if TODAY - dt.timedelta(days=180) <= date <= TODAY + dt.timedelta(days=240):
+            found.append(date)
+    for m in CLOSING_NUMERIC.finditer(text or ""):
+        day, month, year = int(m.group(1)), int(m.group(2)), int(m.group(3))
+        if month > 12 or (day <= 12 and day != month):
+            continue            # not a date, or day and month cannot be told apart
+        try:
+            date = dt.date(year, month, day)
         except ValueError:
             continue
         if TODAY - dt.timedelta(days=180) <= date <= TODAY + dt.timedelta(days=240):
@@ -915,10 +929,12 @@ def assess(job: dict, src: dict) -> tuple[dict | None, str]:
     if src["group"] == "academia" and not core:
         return None, "role"
 
-    # The deadline: the employer's own feed field first, then the advert text.
+    # The deadline comes from the employer's own feed field or from the advert
+    # text. When the two disagree the earlier date is shown, because a student
+    # who applies by then is safe either way.
     today = TODAY.isoformat()
     feed_closes, text_closes = job.get("closes"), closing_date(text)
-    closes = feed_closes or text_closes
+    closes = min(filter(None, [feed_closes, text_closes]), default=None)
     if closes and closes < today:
         return None, "deadline passed"
     posted = job.get("posted")
@@ -1050,7 +1066,10 @@ CLOSED_PAGE = rx(
     r"no longer (available|accepting|open|active|advertised|taking|exists?|live)|"
     r"(position|role|vacancy|job|posting|opportunity|opening) (has|is|was) "
     r"(now )?(been )?(filled|closed|removed|expired|withdrawn)|"
-    r"applications? (are|have|is|has) (now )?(been )?closed|"
+    r"applications?\b[^.\n]{0,60}?\b(are|is|have|has)( now| currently)?( been)? closed|"
+    r"applications (have )?(now )?closed|"
+    r"not (currently |presently |now )?(accepting|taking|open (for|to)) (new |any )?applications|"
+    r"closed (to|for) (new |further )?applications|"
     r"(job|page|posting|vacancy) (was |could |can)?not (be )?found|"
     r"(job|vacancy|posting|advert) (has )?expired|"
     r"page (you (are|were) looking for )?(doesn.t|does not) exist")
