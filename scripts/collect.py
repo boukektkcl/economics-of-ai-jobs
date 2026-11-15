@@ -1261,6 +1261,9 @@ def main() -> int:
 
     records = merge_duplicates(place_aggregated(records, sources))
     records = verify(records, old_jobs)
+    ids = {s["name"]: s["id"] for s in sources}
+    for s in status:        # count what is actually on the board after all checks
+        s["kept"] = sum(1 for r in records if r["id"].startswith(ids[s["name"]] + ":"))
     today = TODAY.isoformat()
     for r in records:
         old = old_jobs.get(r["id"]) or {}
