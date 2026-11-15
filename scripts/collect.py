@@ -268,7 +268,7 @@ def workday(src: dict) -> list[dict]:
     https://tenant.wd3.myworkdayjobs.com and `site` is the career-site name."""
     base, tenant, site = src["base"].rstrip("/"), src["tenant"], src["site"]
     api = f"{base}/wday/cxs/{tenant}/{site}"
-    out, offset = [], 0
+    out, offset, total = [], 0, 0
     while True:
         body = {"limit": 20, "offset": offset, "searchText": src.get("search", "")}
         if src.get("facets"):
@@ -286,16 +286,101 @@ def workday(src: dict) -> list[dict]:
                 job["posted"] = iso_date(info.get("startDate")) or job.get("posted")
                 return to_text(info.get("jobDescription"))
 
+            where_text = j.get("locationsText") or ""
+            if re.match(r"\d+ Locations?$", where_text):
+                # Multi-site adverts hide the place; the first one is in the address.
+                m = re.match(r"/job/([^/]+)/", path)
+                where_text = m.group(1).replace("-", " ") if m else where_text
             out.append(raw(
                 sid=path.rsplit("/", 1)[-1],
                 title=(j.get("title") or "").strip(),
-                location=j.get("locationsText") or "",
+                location=where_text,
                 url=f"{base}/en-US/{site}{path}",
                 lazy=lazy,
             ))
         offset += len(items)
-        if not items or offset >= data.get("total", 0) or offset >= 400:
+        total = data.get("total") or total      # later pages report 0
+        if not items or offset >= total or offset >= 400:
             break
+    return out
+
+
+def oracle(src: dict) -> list[dict]:
+    """Oracle Recruiting Cloud career sites (e.g. the Bank of England).
+    `base` is the host and `site` the career-site number."""
+    base, site = src["base"].rstrip("/"), src["site"]
+    api = base + "/hcmRestApi/resources/latest/"
+    data = fetch_json(api + "recruitingCEJobRequisitions?onlyData=true"
+                      "&expand=requisitionList.secondaryLocations"
+                      f"&finder=findReqs;siteNumber={site},limit=200,sortBy=POSTING_DATES_DESC")
+    out = []
+    for j in ((data.get("items") or [{}])[0].get("requisitionList") or []):
+        jid = str(j.get("Id"))
+
+        def lazy(job, jid=jid):
+            detail = fetch_json(api + "recruitingCEJobRequisitionDetails?expand=all&onlyData=true"
+                                f"&finder=ById;Id=%22{jid}%22,siteNumber={site}")
+            item = (detail.get("items") or [{}])[0]
+            return "\n".join(to_text(item.get(k)) for k in (
+                "ExternalDescriptionStr", "ExternalQualificationsStr",
+                "ExternalResponsibilitiesStr") if item.get(k))
+
+        out.append(raw(
+            sid=jid,
+            title=(j.get("Title") or "").strip(),
+            location=j.get("PrimaryLocation") or "",
+            url=f"{base}/hcmUI/CandidateExperience/en/sites/{site}/job/{jid}",
+            posted=iso_date(j.get("PostedDate")),
+            closes=iso_date(j.get("PostingEndDate")),
+            lazy=lazy,
+        ))
+    return out
+
+
+def aisafety(src: dict) -> list[dict]:
+    """The AISafety.com jobs board, which lists AI safety and governance roles
+    at many organisations. Each card states the experience level and degree
+    asked for, which is used here in place of reading the full advert."""
+    doc = fetch(src["url"], timeout=90).decode("utf-8", "replace")
+    out = []
+    for card in re.findall(r'(?s)<li id="rec[^"]*" class="card.*?</li>', doc):
+        link = re.search(r'(?s)<h3>\s*<a href="([^"]+)"[^>]*>(.*?)</a>', card)
+        if not link:
+            continue
+        url = html.unescape(link.group(1))
+        url = re.sub(r"[?&]utm_[a-z]+=[^&]*", "", url).rstrip("?&")
+        title = to_text(re.sub(r"(?s)<span class=\"visually-hidden\">.*?</span>", "", link.group(2)))
+        facts = {}
+        for p in re.findall(r'(?s)<p class="paragraph-xs[^"]*">(.*?)</p>', card):
+            line = to_text(p)
+            key, sep, value = line.partition(":")
+            if sep:
+                facts[key.strip().lower()] = value.strip()
+            elif line.lower().startswith("posted "):
+                facts["posted"] = line[7:]
+        experience = facts.get("min experience", "")
+        if experience and not re.search(r"entry|junior|multiple", experience, re.I):
+            continue
+        if "doctoral" in facts.get("required degree", "").lower():
+            continue
+        blurb = re.search(r'(?s)<p class="paragraph-small[^"]*">(.*?)</p>', card)
+        posted = None
+        m = re.match(r"(\d{1,2}) (\w+) (\d{4})", facts.get("posted", ""))
+        if m and m.group(2).lower() in MONTHS:
+            posted = f"{m.group(3)}-{MONTHS.index(m.group(2).lower()) + 1:02d}-{int(m.group(1)):02d}"
+        out.append(raw(
+            sid=re.search(r'id="(rec[^"]*)"', card).group(1),
+            title=title,
+            employer=facts.get("organization", ""),
+            location=facts.get("location", ""),
+            url=url,
+            posted=posted,
+            description=to_text(blurb.group(1)) if blurb else "",
+            employment=facts.get("role type", ""),
+            salary=facts.get("salary", ""),
+            level_hint="Entry level" if re.search(r"entry", experience, re.I)
+            else ("1 to 4 years' experience" if re.search(r"junior", experience, re.I) else None),
+        ))
     return out
 
 
@@ -437,6 +522,7 @@ ADAPTERS = {
     "workable": workable, "recruitee": recruitee,
     "smartrecruiters": smartrecruiters, "workday": workday, "rss": rss,
     "pinpoint": pinpoint, "html": html_links, "google": google_careers,
+    "oracle": oracle, "aisafety": aisafety,
 }
 
 
@@ -470,8 +556,14 @@ REMOTE_WORDS = rx(r"\b(remote|anywhere|worldwide|global|distributed|"
                   r"work from home|home[- ]based|virtual)\b")
 # After removing the word "remote", what is left has to be one of these (or
 # nothing) for a remote job to count as open to someone living in the UK.
-REMOTE_OK_REGIONS = rx(r"\b(emea|europe|european|eu|global|worldwide|anywhere|"
+REMOTE_OK_REGIONS = rx(r"\b(emea|europe|european|eu|global\w*|worldwide|anywhere|"
                        r"international|gmt|bst|utc|cet)\b")
+# Remote adverts whose text says only people in the United States can apply.
+US_ONLY = rx(r"(must|need to|required to|have to) (be|reside|live|be based|be located) "
+             r"(in|within) the (u\.?s\.?|united states)|"
+             r"(u\.?s\.?|united states)[- ]based (candidates|applicants) only|"
+             r"(authori[sz]ed|eligible|right) to work in the (u\.?s\.?|united states)|"
+             r"u\.?s\.? citizen(ship)? (is )?required")
 UK_COUNTRY_CODES = {"gb", "uk", "united kingdom", "great britain", "england",
                     "scotland", "wales", "northern ireland"}
 
@@ -499,8 +591,6 @@ def place(job: dict) -> dict | None:
         return {"where": where, "label": label}
 
     if is_remote:
-        if country and country not in UK_COUNTRY_CODES and not REMOTE_OK_REGIONS.search(cleaned):
-            return None
         rest = REMOTE_WORDS.sub(" ", cleaned)
         rest = re.sub(r"[\s,\-–—()/:|·]+|\b(only|based|friendly|first|fully|"
                       r"hybrid|or|in|within|time ?zones?|role|position)\b",
@@ -516,6 +606,7 @@ def place(job: dict) -> dict | None:
 SENIOR_TITLE = rx(
     r"\b(senior|sr\.?|lead|principal|head|director|chief|vp|vice[- ]president|"
     r"staff|partner|professor|chair|executive director|managing|expert|"
+    r"post[- ]?doc\w*|lecturer|reader|"
     r"distinguished|fellow, senior|superintendent|president|c[efot]o|"
     r"general counsel|deputy director|grade 6|g6|scs\d?)\b")
 # "Manager" titles usually need several years; they are kept only when the
@@ -621,6 +712,7 @@ OFF_TOPIC = rx(
     r"data cent(er|re) (technician|operations)|supply chain|procurement|"
     r"physician|clinical|nurse|biolog\w*|chemist\w*|physics|wet lab|"
     r"annotat\w*|linguist\w*|translator|tutor|voice|actor|"
+    r"gtm|go[- ]to[- ]market|expressions? of interest|"
     r"product manager|product owner|scrum|qa|quality assurance|tester|"
     r"finance (manager|business partner)|fp&a|controller|"
     r"partnerships?|deployment|implementation|enablement|support)\b")
@@ -734,7 +826,13 @@ def assess(job: dict, src: dict) -> tuple[dict | None, str]:
     if not title or not job["url"]:
         return None, "incomplete"
 
+    if src.get("title_must_match") and not re.search(src["title_must_match"], title, re.I):
+        return None, "place"
+
     where = place(job)
+    if not where and src.get("assume_uk"):
+        # A UK-only employer whose feed gives an office name, not a town.
+        where = {"where": "UK", "label": job["location"] or "United Kingdom"}
     if not where:
         return None, "place"
 
@@ -763,6 +861,9 @@ def assess(job: dict, src: dict) -> tuple[dict | None, str]:
             print(f"    could not read advert text for {title!r}: {err}")
     text = job["description"] or ""
 
+    if where["where"] == "Remote" and US_ONLY.search(text):
+        return None, "place"
+
     years = years_required(text)
     if years is not None and years > MAX_YEARS:
         return None, "experience"
@@ -779,10 +880,15 @@ def assess(job: dict, src: dict) -> tuple[dict | None, str]:
         need = src.get("min_ai_mentions", 3)
         if ai_in_title:
             focus = "AI role"
+        elif src["group"] == "academia":
+            # University feeds are full of lab posts that mention AI in passing.
+            return None, "not about AI"
         elif mentions >= need and (core or JUNIOR_TITLE.search(title)):
             focus = "AI-related"
         else:
             return None, "not about AI"
+    if src["group"] == "academia" and not core:
+        return None, "role"
 
     salary = (job.get("salary") or "").strip()
     if not salary:
@@ -794,7 +900,8 @@ def assess(job: dict, src: dict) -> tuple[dict | None, str]:
         "id": f"{src['id']}:{job['sid']}",
         "title": re.sub(r"\s+", " ", title),
         "employer": employer,
-        "group": src["group"],
+        "group": job.get("group") or src["group"],
+        "via": src["name"] if src.get("aggregator") else "",
         "where": where["where"],
         "location": where["label"],
         "url": job["url"],
@@ -802,7 +909,7 @@ def assess(job: dict, src: dict) -> tuple[dict | None, str]:
         "closes": job.get("closes") or closing_date(text),
         "salary": salary[:80],
         "kind": kind(title, job.get("employment") or ""),
-        "level": level(title, years),
+        "level": job.get("level_hint") or level(title, years),
         "focus": focus,
         "summary": summary(text),
     }
@@ -829,6 +936,52 @@ def collect_source(src: dict) -> dict:
     return {"src": src, "ok": True, "error": "", "records": records,
             "seen": len(jobs), "dropped": dropped, "audit": audit,
             "seconds": round(time.time() - started, 1)}
+
+
+def squash(text: str) -> str:
+    return re.sub(r"[^a-z0-9]+", "", text.lower())
+
+
+def same_employer(a: str, b: str) -> bool:
+    a, b = squash(a), squash(b)
+    return bool(a and b) and (a in b or b in a)
+
+
+def place_aggregated(records: list[dict], sources: list[dict]) -> list[dict]:
+    """Vacancies from a jobs board that covers many employers: drop the ones an
+    employer's own feed already supplied, and give the rest an employer type."""
+    direct = [r for r in records if not r.get("via")]
+    direct_links = {r["url"].split("?")[0].rstrip("/") for r in direct}
+    known = [(s["name"], s["group"]) for s in sources if not s.get("aggregator")]
+    out = list(direct)
+    for r in records:
+        if not r.get("via"):
+            continue
+        if r["url"].split("?")[0].rstrip("/") in direct_links:
+            continue
+        if any(same_employer(r["employer"], d["employer"])
+               and squash(r["title"]) == squash(d["title"]) for d in direct):
+            continue
+        # An employer whose own feed is read directly is covered by that feed,
+        # with the full advert text to filter on.
+        match = next((g for name, g in known if same_employer(r["employer"], name)), None)
+        if match and squash(r["employer"]) not in ("ai",):
+            continue
+        name = r["employer"]
+        if re.search(r"universit|college|school of|\bmit\b|\beth\b", name, re.I):
+            r["group"] = "academia"
+        elif re.search(r"government|department|ministry|commission|parliament|"
+                       r"\boffice\b|civil service|council|\bnhs\b|european union|"
+                       r"united nations|\boecd\b|security institute", name, re.I):
+            r["group"] = "government"
+        elif re.search(r"\b(inc|ltd|labs?|technologies|capital|ventures|consulting|"
+                       r"partners|group|deepmind|openai|anthropic|microsoft|google|meta|"
+                       r"amazon|nvidia|ibm)\b", name, re.I):
+            r["group"] = "labs"
+        else:
+            r["group"] = "thinktank"
+        out.append(r)
+    return out
 
 
 def merge_duplicates(records: list[dict]) -> list[dict]:
@@ -890,7 +1043,7 @@ def main() -> int:
                        "careers": src.get("careers", ""), "listed": res["seen"],
                        "kept": len(res["records"])})
 
-    records = merge_duplicates(records)
+    records = merge_duplicates(place_aggregated(records, sources))
     today = TODAY.isoformat()
     for r in records:
         old = old_jobs.get(r["id"])

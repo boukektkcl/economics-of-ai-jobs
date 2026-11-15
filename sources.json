@@ -2,7 +2,7 @@
   "_how_to_edit": [
     "Each entry is one employer whose public careers feed is read every morning.",
     "name    - shown on the page.",
-    "group   - labs | thinktank | government | industry | academia.",
+    "group   - labs | thinktank | government | industry | academia (and boards, for a jobs board covering many employers).",
     "focus   - 'ai-policy' for AI governance and policy organisations (research, analysis, programme and generalist roles are kept);",
     "          'ai' for AI companies (only economics, policy and market-analysis roles are kept);",
     "          'general' for everyone else (as ai-policy, and the advert itself must be about AI, technology or digital markets).",
@@ -34,6 +34,12 @@
     {"name": "Goodfire", "group": "labs", "focus": "ai", "ats": "greenhouse", "token": "goodfire", "careers": "https://job-boards.greenhouse.io/goodfire"},
 
     {"name": "AI Security Institute", "group": "government", "focus": "ai-policy", "ats": "greenhouse", "token": "aisi", "careers": "https://www.aisi.gov.uk/careers"},
+    {"name": "Incubator for AI (i.AI)", "group": "government", "focus": "ai-policy", "ats": "greenhouse", "token": "iai", "careers": "https://ai.gov.uk/opportunities"},
+    {"name": "Bank of England", "group": "government", "focus": "general", "ats": "oracle", "base": "https://eoff.fa.em1.ukg.oraclecloud.com", "site": "CX_1001", "assume_uk": true, "careers": "https://www.bankofengland.co.uk/careers"},
+    {"name": "Ofcom", "group": "government", "focus": "general", "ats": "workday", "base": "https://ofcom.wd3.myworkdayjobs.com", "tenant": "ofcom", "site": "Ofcom_Careers", "assume_uk": true, "careers": "https://ofcom.wd3.myworkdayjobs.com/Ofcom_Careers"},
+    {"name": "Financial Conduct Authority", "group": "government", "focus": "general", "ats": "workday", "base": "https://fca.wd3.myworkdayjobs.com", "tenant": "fca", "site": "FCA_Careers", "assume_uk": true, "careers": "https://fca.wd3.myworkdayjobs.com/FCA_Careers"},
+    {"name": "Information Commissioner's Office", "group": "government", "focus": "general", "ats": "workday", "base": "https://ico.wd3.myworkdayjobs.com", "tenant": "ico", "site": "ICO", "assume_uk": true, "careers": "https://ico.org.uk/about-the-ico/jobs/vacancies/"},
+    {"name": "UK Research and Innovation", "group": "government", "focus": "general", "ats": "oracle", "base": "https://fa-evzn-saasfaukgovprod1.fa.ocs.oraclecloud.com", "site": "UKRI-Careers", "assume_uk": true, "careers": "https://www.ukri.org/about-us/work-for-us/"},
     {"name": "ARIA", "group": "government", "focus": "general", "ats": "pinpoint", "token": "aria", "default_location": "London, UK", "careers": "https://aria.pinpointhq.com/"},
 
     {"name": "Windfall Trust", "group": "thinktank", "focus": "ai-policy", "ats": "ashby", "token": "windfall", "careers": "https://jobs.ashbyhq.com/windfall"},
@@ -57,8 +63,20 @@
     {"name": "Founders Pledge", "group": "thinktank", "focus": "general", "ats": "rss", "url": "https://careers.founderspledge.com/jobs.rss", "careers": "https://careers.founderspledge.com/"},
     {"name": "Rethink Priorities", "group": "thinktank", "focus": "general", "ats": "pinpoint", "base": "https://careers.rethinkpriorities.org", "careers": "https://careers.rethinkpriorities.org/"},
 
+    {"name": "Frontier Economics", "group": "industry", "focus": "general", "ats": "workday", "base": "https://frontiereconomics.wd3.myworkdayjobs.com", "tenant": "frontiereconomics", "site": "Frontier_Economics_Careers", "careers": "https://www.frontier-economics.com/uk/en/careers/"},
+    {"name": "Oxera", "group": "industry", "focus": "general", "ats": "rss", "url": "https://oxera.teamtailor.com/jobs.rss", "careers": "https://oxera.teamtailor.com/"},
+    {"name": "Compass Lexecon", "group": "industry", "focus": "general", "ats": "workday", "base": "https://fticonsulting.wd108.myworkdayjobs.com", "tenant": "fticonsulting", "site": "CompassLexeconCareers", "careers": "https://fticonsulting.wd108.myworkdayjobs.com/CompassLexeconCareers"},
+    {"name": "NERA", "group": "industry", "focus": "general", "ats": "workday", "base": "https://mmc.wd1.myworkdayjobs.com", "tenant": "mmc", "site": "MMC", "search": "NERA", "title_must_match": "^NERA", "careers": "https://www.nera.com/careers.html"},
+    {"name": "Charles River Associates", "group": "industry", "focus": "general", "ats": "greenhouse", "token": "charlesriverassociates", "careers": "https://job-boards.greenhouse.io/charlesriverassociates"},
+    {"name": "Oxford Economics", "group": "industry", "focus": "general", "ats": "pinpoint", "base": "https://careers.oxfordeconomics.com", "careers": "https://careers.oxfordeconomics.com/"},
+    {"name": "Capital Economics", "group": "industry", "focus": "general", "ats": "workable", "token": "capital-economics", "careers": "https://apply.workable.com/capital-economics/"},
     {"name": "Spotify", "group": "industry", "focus": "general", "ats": "lever", "token": "spotify", "careers": "https://jobs.lever.co/spotify"},
+    {"name": "Wise", "group": "industry", "focus": "general", "ats": "smartrecruiters", "token": "Wise", "country": "gb", "careers": "https://wise.jobs/"},
+    {"name": "Monzo", "group": "industry", "focus": "general", "ats": "greenhouse", "token": "monzo", "careers": "https://job-boards.greenhouse.io/monzo"},
+    {"name": "Deliveroo", "group": "industry", "focus": "general", "ats": "greenhouse", "token": "deliveroo", "careers": "https://job-boards.greenhouse.io/deliveroo"},
 
-    {"name": "University of Cambridge", "group": "academia", "focus": "general", "ats": "rss", "url": "https://www.jobs.cam.ac.uk/job/?format=rss", "default_location": "Cambridge, UK", "careers": "https://www.jobs.cam.ac.uk/"}
+    {"name": "University of Cambridge", "group": "academia", "focus": "general", "ats": "rss", "url": "https://www.jobs.cam.ac.uk/job/?format=rss", "default_location": "Cambridge, UK", "careers": "https://www.jobs.cam.ac.uk/"},
+
+    {"name": "AISafety.com jobs board", "group": "boards", "focus": "ai-policy", "aggregator": true, "ats": "aisafety", "url": "https://www.aisafety.com/jobs", "careers": "https://www.aisafety.com/jobs"}
   ]
 }
