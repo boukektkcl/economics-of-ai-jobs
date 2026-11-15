@@ -49,7 +49,9 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: audit
-          path: audit.tsv
+          path: |
+            audit.tsv
+            links.tsv
           retention-days: 14
 
       - name: Save the updated list
