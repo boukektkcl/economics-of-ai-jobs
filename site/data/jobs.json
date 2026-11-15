@@ -1,8 +1,144 @@
 {
- "updated": "2026-11-15T02:53:08Z",
+ "updated": "2026-11-15T03:15:46Z",
  "new_days": 7,
  "max_years": 3,
  "jobs": [
+  {
+   "id": "google-deepmind:91961567221818054",
+   "title": "Research Scientist, FSF Risk Modeling and Governance",
+   "employer": "Google DeepMind",
+   "group": "labs",
+   "where": "London",
+   "location": "London, UK",
+   "url": "https://www.google.com/about/careers/applications/jobs/results/91961567221818054-research-scientist-fsf-risk-modeling-and-governance-deepmind",
+   "posted": "2026-11-15",
+   "closes": null,
+   "salary": "",
+   "kind": "Job",
+   "level": "3+ years' experience",
+   "focus": "AI role",
+   "summary": "corporate_fare DeepMind place London, UK ; New York, NY, USA ; +2 more ; +1 more DeepMind | London, UK ; New York, NY, USA ; +2 more ; +1 more Minimum qualifications PhD in Economics, Philosophy, or a STEM subject, or equivalent practical experience.",
+   "first_seen": "2026-11-15"
+  },
+  {
+   "id": "google-deepmind:119181943320257222",
+   "title": "Research Scientist, Frontier AI Forecasting and Strategic Foresight, DeepMind Institute",
+   "employer": "Google DeepMind",
+   "group": "labs",
+   "where": "London",
+   "location": "London, UK",
+   "url": "https://www.google.com/about/careers/applications/jobs/results/119181943320257222-research-scientist-frontier-ai-forecasting-and-strategic-foresight-deepmind-institute",
+   "posted": "2026-11-15",
+   "closes": null,
+   "salary": "",
+   "kind": "Job",
+   "level": "3+ years' experience",
+   "focus": "AI role",
+   "summary": "corporate_fare DeepMind place London, UK DeepMind | London, UK Minimum qualifications PhD or equivalent advanced experience in a relevant technical, quantitative, or social-scientific field or equivalent practical research experience.",
+   "first_seen": "2026-11-15"
+  },
+  {
+   "id": "forethought:founders-fellowship",
+   "title": "Founders Fellowship",
+   "employer": "Forethought",
+   "group": "thinktank",
+   "where": "UK",
+   "location": "Oxford, UK",
+   "url": "https://www.forethought.org/careers/founders-fellowship",
+   "posted": "2026-11-15",
+   "closes": null,
+   "salary": "£100,000 to £150,000",
+   "kind": "Fellowship or programme",
+   "level": "Experience not stated",
+   "focus": "AI role",
+   "summary": "No application deadline Apply The project specs What the three months look like How we'll support you Who we're looking for What it's like working at Forethought Compensation and structure Application process .footnotes]:hidden [&_.katex]:inline-flex…",
+   "first_seen": "2026-11-15"
+  },
+  {
+   "id": "centre-for-the-governance-of-ai-govai:uk-summer-fellowship-2027-research-track",
+   "title": "UK Summer Fellowship 2027, Research Track",
+   "employer": "Centre for the Governance of AI (GovAI)",
+   "group": "thinktank",
+   "where": "London",
+   "location": "London, UK",
+   "url": "https://www.governance.ai/post/uk-summer-fellowship-2027-research-track",
+   "posted": "2026-11-15",
+   "closes": "2026-11-22",
+   "salary": "£14,000",
+   "kind": "Fellowship or programme",
+   "level": "Experience not stated",
+   "focus": "AI role",
+   "summary": "GovAI was founded to help decision-makers navigate the transition to a world with advanced AI, by producing rigorous research and fostering talent.",
+   "first_seen": "2026-11-15"
+  },
+  {
+   "id": "centre-for-the-governance-of-ai-govai:uk-summer-fellowship-2027-applied-track",
+   "title": "UK Summer Fellowship 2027, Applied Track",
+   "employer": "Centre for the Governance of AI (GovAI)",
+   "group": "thinktank",
+   "where": "London",
+   "location": "London, UK",
+   "url": "https://www.governance.ai/post/uk-summer-fellowship-2027-applied-track",
+   "posted": "2026-11-15",
+   "closes": "2026-11-22",
+   "salary": "£14,000",
+   "kind": "Fellowship or programme",
+   "level": "Experience not stated",
+   "focus": "AI role",
+   "summary": "GovAI was founded to help decision-makers navigate the transition to a world with advanced AI, by producing rigorous research and fostering talent.",
+   "first_seen": "2026-11-15"
+  },
+  {
+   "id": "centre-for-the-governance-of-ai-govai:research-scholar",
+   "title": "Research Scholar",
+   "employer": "Centre for the Governance of AI (GovAI)",
+   "group": "thinktank",
+   "where": "London",
+   "location": "London, UK",
+   "url": "https://www.governance.ai/post/research-scholar",
+   "posted": "2026-11-15",
+   "closes": null,
+   "salary": "£75,000",
+   "kind": "Fellowship or programme",
+   "level": "Experience not stated",
+   "focus": "AI role",
+   "summary": "GovAI was founded to help humanity navigate the transition to a world with advanced AI. Our researchers have provided knowledge and assistance to decision makers in government, industry, and civil society.",
+   "first_seen": "2026-11-15"
+  },
+  {
+   "id": "centre-for-the-governance-of-ai-govai:research-fellow",
+   "title": "Research Fellow",
+   "employer": "Centre for the Governance of AI (GovAI)",
+   "group": "thinktank",
+   "where": "London",
+   "location": "London, UK",
+   "url": "https://www.governance.ai/post/research-fellow",
+   "posted": "2026-11-15",
+   "closes": null,
+   "salary": "£84,000",
+   "kind": "Fellowship or programme",
+   "level": "Experience not stated",
+   "focus": "AI role",
+   "summary": "GovAI was founded to help humanity navigate the transition to a world with advanced AI. Our researchers have provided knowledge and assistance to decision makers in government, industry, and civil society.",
+   "first_seen": "2026-11-15"
+  },
+  {
+   "id": "university-of-cambridge:https://www.jobs.cam.ac.uk/job/57674/",
+   "title": "Postdoctoral Research Associate (Cambridge Digital Minds Research) (Fixed Term)",
+   "employer": "University of Cambridge",
+   "group": "academia",
+   "where": "UK",
+   "location": "Cambridge, UK",
+   "url": "https://www.jobs.cam.ac.uk/job/57674/",
+   "posted": "2026-11-11",
+   "closes": "2027-01-10",
+   "salary": "",
+   "kind": "Job",
+   "level": "Experience not stated",
+   "focus": "AI-related",
+   "summary": "The Leverhulme Centre for the Future of Intelligence (CFI), with the Institute for Technology and Humanity (ITH) at the University of Cambridge invites applications for a Postdoctoral Research Associate to join the Cambridge Digital Minds (CDM) research group…",
+   "first_seen": "2026-11-15"
+  },
   {
    "id": "ai-security-institute:5030927101",
    "title": "Technical Writer, Frontier AI Best Practice",
@@ -38,54 +174,54 @@
    "first_seen": "2026-11-15"
   },
   {
-   "id": "isomorphic-labs:6251458004",
-   "title": "Research Leader (In-vitro Pharmacology, Exploratory Sciences), London",
-   "employer": "Isomorphic Labs",
-   "group": "labs",
-   "where": "London",
-   "location": "London",
-   "url": "https://job-boards.greenhouse.io/isomorphiclabs/jobs/6251458004",
-   "posted": "2026-11-06",
-   "closes": null,
-   "salary": "",
+   "id": "university-of-cambridge:https://www.jobs.cam.ac.uk/job/57605/",
+   "title": "Postdoctoral Research Associate in Agentic AI for Cancer Care (Fixed Term)",
+   "employer": "University of Cambridge",
+   "group": "academia",
+   "where": "UK",
+   "location": "Cambridge, UK",
+   "url": "https://www.jobs.cam.ac.uk/job/57605/",
+   "posted": "2026-10-29",
+   "closes": "2026-11-29",
+   "salary": "£35,302",
    "kind": "Job",
    "level": "Experience not stated",
    "focus": "AI role",
-   "summary": "Isomorphic Labs is applying frontier AI to help unlock deeper scientific insights, faster breakthroughs, and life-changing medicines with an ambition to solve all disease. The future is coming.",
+   "summary": "Ovarian cancer is one of the most challenging malignancies to diagnose and manage, with critical treatment decisions requiring the integration of complex, multimodal clinical evidence.",
    "first_seen": "2026-11-15"
   },
   {
-   "id": "faculty:30d3558d-cef0-460b-a3cd-ad47341b8064",
-   "title": "Associate (Education)",
-   "employer": "Faculty",
-   "group": "labs",
-   "where": "London",
-   "location": "London · remote possible",
-   "url": "https://jobs.ashbyhq.com/faculty/30d3558d-cef0-460b-a3cd-ad47341b8064",
-   "posted": "2026-11-02",
-   "closes": null,
-   "salary": "",
-   "kind": "Job",
-   "level": "Experience not stated",
-   "focus": "AI role",
-   "summary": "Our Public Services Business Unit is committed to leveraging AI for the benefit of individual citizens and the public good. From our work informing strategic government decisions, to optimising our NHS, through to reducing bureaucratic backlogs - we know that…",
-   "first_seen": "2026-11-15"
-  },
-  {
-   "id": "anthropic:5439169008",
-   "title": "Anthropic Research Resident",
-   "employer": "Anthropic",
-   "group": "labs",
-   "where": "London",
-   "location": "London, UK",
-   "url": "https://job-boards.greenhouse.io/anthropic/jobs/5439169008",
+   "id": "university-of-cambridge:https://www.jobs.cam.ac.uk/job/57598/",
+   "title": "Research Assistant - Yu Group (Fixed Term)",
+   "employer": "University of Cambridge",
+   "group": "academia",
+   "where": "UK",
+   "location": "Cambridge, UK",
+   "url": "https://www.jobs.cam.ac.uk/job/57598/",
    "posted": "2026-10-28",
    "closes": null,
-   "salary": "£265,000 to £375,000",
+   "salary": "",
    "kind": "Fellowship or programme",
+   "level": "Entry level",
+   "focus": "AI-related",
+   "summary": "Applications are invited for a Research Assistant in the group of Dr Haopeng Yu at the Sainsbury Laboratory Cambridge University (SLCU).",
+   "first_seen": "2026-11-15"
+  },
+  {
+   "id": "apollo-research:df8439d2-b43e-4136-94d9-d9071f9327a2",
+   "title": "GTM Associate (Product - Watcher)",
+   "employer": "Apollo Research",
+   "group": "thinktank",
+   "where": "London",
+   "location": "London",
+   "url": "https://jobs.lever.co/apolloresearch/df8439d2-b43e-4136-94d9-d9071f9327a2",
+   "posted": "2026-10-23",
+   "closes": null,
+   "salary": "£72,000 - £98,000",
+   "kind": "Job",
    "level": "Experience not stated",
    "focus": "AI role",
-   "summary": "The Anthropic Residency is our paid, fixed-term research program, with placements lasting between six weeks and six months. We are looking for people who have led ambitious work in a variety of technical fields and want to transition to full-time work focused…",
+   "summary": "We are building Watcher, a coding agent security product. Watcher is deployed in production and monitors billions of agent tokens per month across engineering teams at agent-building scale-ups and multinational enterprises.",
    "first_seen": "2026-11-15"
   },
   {
@@ -106,74 +242,6 @@
    "first_seen": "2026-11-15"
   },
   {
-   "id": "elevenlabs:257f24da-83db-4bad-a6dc-37793a1a0bac",
-   "title": "Finance Data Scientist",
-   "employer": "ElevenLabs",
-   "group": "labs",
-   "where": "UK",
-   "location": "United Kingdom · remote possible",
-   "url": "https://jobs.ashbyhq.com/ElevenLabs/257f24da-83db-4bad-a6dc-37793a1a0bac",
-   "posted": "2026-10-05",
-   "closes": null,
-   "salary": "",
-   "kind": "Job",
-   "level": "Experience not stated",
-   "focus": "AI role",
-   "summary": "We're looking for a Finance Data Scientist to join our central Data team as the first dedicated analytics partner to Finance. You'll turn billing, revenue and forecasting data into audit-ready numbers, and the analysis that shapes pricing and planning…",
-   "first_seen": "2026-11-15"
-  },
-  {
-   "id": "faculty:9dc456fe-0ef7-480e-a09e-91b7809bb459",
-   "title": "Associate",
-   "employer": "Faculty",
-   "group": "labs",
-   "where": "London",
-   "location": "London · remote possible",
-   "url": "https://jobs.ashbyhq.com/faculty/9dc456fe-0ef7-480e-a09e-91b7809bb459",
-   "posted": "2026-09-22",
-   "closes": null,
-   "salary": "",
-   "kind": "Job",
-   "level": "Experience not stated",
-   "focus": "AI role",
-   "summary": "Bringing medicine to patients is complex, expensive and high-risk. Faculty’s Life Science’s team is concentrated on building AI solutions which optimise the research and commercialisation of life-changing therapies.",
-   "first_seen": "2026-11-15"
-  },
-  {
-   "id": "faculty:1f8374d4-2523-448b-9900-76fe5b21080b",
-   "title": "Associate (Safety)",
-   "employer": "Faculty",
-   "group": "labs",
-   "where": "London",
-   "location": "London · remote possible",
-   "url": "https://jobs.ashbyhq.com/faculty/1f8374d4-2523-448b-9900-76fe5b21080b",
-   "posted": "2026-08-10",
-   "closes": null,
-   "salary": "",
-   "kind": "Job",
-   "level": "Experience not stated",
-   "focus": "AI role",
-   "summary": "Our National Security and AI Safety business unit is dedicated to advancing the responsible development and deployment of AI in support of national security and global stability.",
-   "first_seen": "2026-11-15"
-  },
-  {
-   "id": "scale-ai:4717574005",
-   "title": "GTM Business Operations Associate",
-   "employer": "Scale AI",
-   "group": "labs",
-   "where": "London",
-   "location": "London, UK",
-   "url": "https://job-boards.greenhouse.io/scaleai/jobs/4717574005",
-   "posted": "2026-07-24",
-   "closes": null,
-   "salary": "",
-   "kind": "Job",
-   "level": "Experience not stated",
-   "focus": "AI role",
-   "summary": "Sales enablement & GTM onboarding Design and run onboarding for new GTM hires - building the curriculum, materials and 30/60/90-day milestones that get sellers productive quickly Build and maintain a central library of enablement content (product and use-case…",
-   "first_seen": "2026-11-15"
-  },
-  {
    "id": "anthropic:5231200008",
    "title": "Regional Research Economist, Economic Research",
    "employer": "Anthropic",
@@ -188,23 +256,6 @@
    "level": "Experience not stated",
    "focus": "AI role",
    "summary": "As a Regional Research Economist at Anthropic, you will work to collaborate with governments, academia, industry, and civil society in your region to measure and understand AI's effects on the economy and explore research-driven policy interventions.",
-   "first_seen": "2026-11-15"
-  },
-  {
-   "id": "cohere:73bd3e2b-6597-4124-b64b-1e5dbc32e785",
-   "title": "Research Internship (Winter 2027)",
-   "employer": "Cohere",
-   "group": "labs",
-   "where": "London",
-   "location": "London · United Kingdom (+6 other) · remote possible",
-   "url": "https://jobs.ashbyhq.com/cohere/73bd3e2b-6597-4124-b64b-1e5dbc32e785",
-   "posted": "2026-05-01",
-   "closes": null,
-   "salary": "",
-   "kind": "Internship",
-   "level": "Entry level",
-   "focus": "AI role",
-   "summary": "WHO ARE WE? Cohere is the leading security-first enterprise AI company. We build cutting-edge foundation AI models and end-to-end products that are designed to solve real-world business problems.",
    "first_seen": "2026-11-15"
   },
   {
@@ -223,43 +274,17 @@
    "focus": "AI role",
    "summary": "About Anthropic Anthropic’s mission is to create reliable, interpretable, and steerable AI systems. We want AI to be safe and beneficial for our users and for society as a whole.",
    "first_seen": "2026-11-15"
-  },
-  {
-   "id": "scale-ai:4612329005",
-   "title": "Medical Fellow - Human Frontier Collective (UK)",
-   "employer": "Scale AI",
-   "group": "labs",
-   "where": "UK",
-   "location": "United Kingdom",
-   "url": "https://job-boards.greenhouse.io/scaleai/jobs/4612329005",
-   "posted": "2025-10-17",
-   "closes": null,
-   "salary": "",
-   "kind": "Fellowship or programme",
-   "level": "Experience not stated",
-   "focus": "AI role",
-   "summary": "The Human Frontier Collective (HFC) Fellowship brings together top researchers and domain experts to collaborate on high-impact work that are shaping the future of AI.",
-   "first_seen": "2026-11-15"
-  },
-  {
-   "id": "scale-ai:4620719005",
-   "title": "STEM Fellow - Human Frontier Collective (UK)",
-   "employer": "Scale AI",
-   "group": "labs",
-   "where": "UK",
-   "location": "United Kingdom",
-   "url": "https://job-boards.greenhouse.io/scaleai/jobs/4620719005",
-   "posted": "2025-10-17",
-   "closes": null,
-   "salary": "",
-   "kind": "Fellowship or programme",
-   "level": "Experience not stated",
-   "focus": "AI role",
-   "summary": "The Human Frontier Collective (HFC) Fellowship brings together top researchers and domain experts to collaborate on high-impact work that are shaping the future of AI.",
-   "first_seen": "2026-11-15"
   }
  ],
  "sources": [
+  {
+   "name": "University of Cambridge",
+   "group": "academia",
+   "ok": true,
+   "careers": "https://www.jobs.cam.ac.uk/",
+   "listed": 192,
+   "kept": 3
+  },
   {
    "name": "AI Security Institute",
    "group": "government",
@@ -269,11 +294,11 @@
    "kept": 1
   },
   {
-   "name": "Palantir",
-   "group": "industry",
+   "name": "ARIA",
+   "group": "government",
    "ok": true,
-   "careers": "https://jobs.lever.co/palantir",
-   "listed": 302,
+   "careers": "https://aria.pinpointhq.com/",
+   "listed": 5,
    "kept": 0
   },
   {
@@ -290,7 +315,7 @@
    "ok": true,
    "careers": "https://www.anthropic.com/careers",
    "listed": 670,
-   "kept": 3
+   "kept": 2
   },
   {
    "name": "Cohere",
@@ -298,7 +323,7 @@
    "ok": true,
    "careers": "https://jobs.ashbyhq.com/cohere",
    "listed": 121,
-   "kept": 1
+   "kept": 0
   },
   {
    "name": "ElevenLabs",
@@ -306,7 +331,7 @@
    "ok": true,
    "careers": "https://jobs.ashbyhq.com/elevenlabs",
    "listed": 128,
-   "kept": 1
+   "kept": 0
   },
   {
    "name": "Faculty",
@@ -314,7 +339,23 @@
    "ok": true,
    "careers": "https://jobs.ashbyhq.com/faculty",
    "listed": 97,
-   "kept": 5
+   "kept": 0
+  },
+  {
+   "name": "Goodfire",
+   "group": "labs",
+   "ok": true,
+   "careers": "https://job-boards.greenhouse.io/goodfire",
+   "listed": 28,
+   "kept": 0
+  },
+  {
+   "name": "Google DeepMind",
+   "group": "labs",
+   "ok": true,
+   "careers": "https://deepmind.google/careers/",
+   "listed": 41,
+   "kept": 2
   },
   {
    "name": "Harvey",
@@ -330,7 +371,15 @@
    "ok": true,
    "careers": "https://job-boards.greenhouse.io/isomorphiclabs",
    "listed": 40,
-   "kept": 1
+   "kept": 0
+  },
+  {
+   "name": "Mistral AI",
+   "group": "labs",
+   "ok": true,
+   "careers": "https://mistral.ai/careers",
+   "listed": 252,
+   "kept": 0
   },
   {
    "name": "OpenAI",
@@ -349,12 +398,20 @@
    "kept": 0
   },
   {
+   "name": "PolyAI",
+   "group": "labs",
+   "ok": true,
+   "careers": "https://poly.ai/careers",
+   "listed": 3,
+   "kept": 0
+  },
+  {
    "name": "Scale AI",
    "group": "labs",
    "ok": true,
    "careers": "https://job-boards.greenhouse.io/scaleai",
    "listed": 170,
-   "kept": 4
+   "kept": 1
   },
   {
    "name": "Stability AI",
@@ -389,12 +446,52 @@
    "kept": 0
   },
   {
+   "name": "80,000 Hours",
+   "group": "thinktank",
+   "ok": true,
+   "careers": "https://80000hours.org/about/work-with-us/",
+   "listed": 0,
+   "kept": 0
+  },
+  {
+   "name": "Apollo Research",
+   "group": "thinktank",
+   "ok": true,
+   "careers": "https://jobs.lever.co/apolloresearch",
+   "listed": 11,
+   "kept": 1
+  },
+  {
    "name": "BlueDot Impact",
    "group": "thinktank",
    "ok": true,
    "careers": "https://jobs.ashbyhq.com/bluedot",
    "listed": 1,
    "kept": 0
+  },
+  {
+   "name": "Center for AI Safety",
+   "group": "thinktank",
+   "ok": true,
+   "careers": "https://job-boards.greenhouse.io/cais",
+   "listed": 13,
+   "kept": 0
+  },
+  {
+   "name": "Centre for Effective Altruism",
+   "group": "thinktank",
+   "ok": true,
+   "careers": "https://jobs.ashbyhq.com/centreforeffectivealtruism",
+   "listed": 6,
+   "kept": 0
+  },
+  {
+   "name": "Centre for the Governance of AI (GovAI)",
+   "group": "thinktank",
+   "ok": true,
+   "careers": "https://www.governance.ai/opportunities",
+   "listed": 8,
+   "kept": 4
   },
   {
    "name": "Coefficient Giving",
@@ -405,11 +502,67 @@
    "kept": 0
   },
   {
+   "name": "Epoch AI",
+   "group": "thinktank",
+   "ok": true,
+   "careers": "https://epoch.ai/about/careers",
+   "listed": 7,
+   "kept": 0
+  },
+  {
    "name": "FAR.AI",
    "group": "thinktank",
    "ok": true,
    "careers": "https://jobs.ashbyhq.com/far.ai",
    "listed": 20,
+   "kept": 0
+  },
+  {
+   "name": "Forethought",
+   "group": "thinktank",
+   "ok": true,
+   "careers": "https://www.forethought.org/careers",
+   "listed": 3,
+   "kept": 1
+  },
+  {
+   "name": "Founders Pledge",
+   "group": "thinktank",
+   "ok": true,
+   "careers": "https://careers.founderspledge.com/",
+   "listed": 1,
+   "kept": 0
+  },
+  {
+   "name": "Future of Life Institute",
+   "group": "thinktank",
+   "ok": true,
+   "careers": "https://futureoflife.org/about-us/careers/",
+   "listed": 12,
+   "kept": 0
+  },
+  {
+   "name": "Institute for Government",
+   "group": "thinktank",
+   "ok": true,
+   "careers": "https://www.instituteforgovernment.org.uk/about-us/careers/current-vacancies",
+   "listed": 1,
+   "kept": 0
+  },
+  {
+   "name": "Longview Philanthropy",
+   "group": "thinktank",
+   "ok": true,
+   "careers": "https://www.longview.org/careers/",
+   "listed": 0,
+   "kept": 0
+  },
+  {
+   "name": "METR",
+   "group": "thinktank",
+   "ok": true,
+   "careers": "https://jobs.lever.co/metr",
+   "listed": 4,
    "kept": 0
   },
   {
@@ -427,6 +580,30 @@
    "careers": "https://jobs.ashbyhq.com/pivotal",
    "listed": 8,
    "kept": 1
+  },
+  {
+   "name": "Rethink Priorities",
+   "group": "thinktank",
+   "ok": true,
+   "careers": "https://careers.rethinkpriorities.org/",
+   "listed": 0,
+   "kept": 0
+  },
+  {
+   "name": "Tony Blair Institute",
+   "group": "thinktank",
+   "ok": true,
+   "careers": "https://institute.global/careers",
+   "listed": 10,
+   "kept": 0
+  },
+  {
+   "name": "Windfall Trust",
+   "group": "thinktank",
+   "ok": true,
+   "careers": "https://jobs.ashbyhq.com/windfall",
+   "listed": 3,
+   "kept": 0
   }
  ]
 }
