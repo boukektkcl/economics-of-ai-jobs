@@ -163,7 +163,8 @@ def ashby(src: dict) -> list[dict]:
 
 def lever(src: dict) -> list[dict]:
     host = src.get("host", "api.lever.co")
-    data = fetch_json(f"https://{host}/v0/postings/{src['token']}?mode=json")
+    data = fetch_json(f"https://{host}/v0/postings/{src['token']}?mode=json"
+                      + src.get("query", ""))
     out = []
     for j in data:
         cats = j.get("categories") or {}
@@ -237,7 +238,7 @@ def smartrecruiters(src: dict) -> list[dict]:
             loc = j.get("location") or {}
             place = ", ".join(x for x in (loc.get("city"), loc.get("country", "").upper()) if x)
 
-            def lazy(jid=j.get("id")):
+            def lazy(job, jid=j.get("id")):
                 detail = fetch_json("https://api.smartrecruiters.com/v1/companies/"
                                     f"{company}/postings/{jid}")
                 sections = ((detail.get("jobAd") or {}).get("sections") or {})
@@ -279,15 +280,17 @@ def workday(src: dict) -> list[dict]:
         for j in items:
             path = j.get("externalPath") or ""
 
-            def lazy(p=path):
-                info = fetch_json(api + p, headers={"Accept": "application/json"})
-                return to_text((info.get("jobPostingInfo") or {}).get("jobDescription"))
+            def lazy(job, p=path):
+                info = (fetch_json(api + p, headers={"Accept": "application/json"})
+                        .get("jobPostingInfo") or {})
+                job["posted"] = iso_date(info.get("startDate")) or job.get("posted")
+                return to_text(info.get("jobDescription"))
 
             out.append(raw(
                 sid=path.rsplit("/", 1)[-1],
                 title=(j.get("title") or "").strip(),
                 location=j.get("locationsText") or "",
-                url=f"{base}/{site}{path}",
+                url=f"{base}/en-US/{site}{path}",
                 lazy=lazy,
             ))
         offset += len(items)
@@ -311,11 +314,17 @@ def rss(src: dict) -> list[dict]:
             if name == "link" and not value:
                 value = child.attrib.get("href", "")
             fields.setdefault(name, value)
+        # Teamtailor feeds nest the place: locations > location > city, country
+        places = [(n.text or "").strip() for n in item.iter()
+                  if n.tag.rsplit("}", 1)[-1].lower() in ("city", "country") and (n.text or "").strip()]
+        if (fields.get("remotestatus") or "").lower() in ("fully", "remote"):
+            places.append("Remote")
         title = fields.get("title", "")
         out.append(raw(
             sid=fields.get("guid") or fields.get("id") or fields.get("link", ""),
             title=to_text(title),
-            location=fields.get("location", "") or src.get("default_location", ""),
+            location=fields.get("location", "") or ", ".join(dict.fromkeys(places))
+            or src.get("default_location", ""),
             url=fields.get("link", ""),
             posted=iso_date(fields.get("pubdate") or fields.get("published")
                             or fields.get("updated") or fields.get("date")),
@@ -326,10 +335,108 @@ def rss(src: dict) -> list[dict]:
     return out
 
 
+def pinpoint(src: dict) -> list[dict]:
+    """Pinpoint careers sites: https://{token}.pinpointhq.com (or a custom
+    domain given as `base`)."""
+    base = src.get("base", f"https://{src.get('token')}.pinpointhq.com").rstrip("/")
+    data = fetch_json(base + "/postings.json")
+    out = []
+    for j in data.get("data", []):
+        loc = j.get("location") or {}
+        place_name = loc.get("name") or ", ".join(
+            x for x in (loc.get("city"), loc.get("province")) if x)
+        workplace = j.get("workplace_type_text") or ""
+        text = "\n".join(to_text(j.get(k)) for k in (
+            "description", "key_responsibilities", "skills_knowledge_expertise", "benefits")
+            if isinstance(j.get(k), str))
+        out.append(raw(
+            sid=str(j.get("id") or j.get("path")),
+            title=(j.get("title") or "").strip(),
+            location=place_name or src.get("default_location", ""),
+            url=j.get("url") or (base + (j.get("path") or "")),
+            description=text.strip(),
+            employment=j.get("employment_type_text") or "",
+            remote=True if "remote" in workplace.lower() else None,
+            closes=iso_date(j.get("deadline_at")),
+        ))
+    return out
+
+
+def page_text_after_heading(doc: str) -> tuple[str, str]:
+    """Title (first <h1>) and the text that follows it on an advert page."""
+    m = re.search(r"(?is)<h1[^>]*>(.*?)</h1>", doc)
+    title = to_text(m.group(1)) if m else ""
+    body = doc[m.end():] if m else doc
+    body = re.sub(r"(?is)<(footer|nav|form)[^>]*>.*?</\1>", " ", body)
+    return title, to_text(body)
+
+
+def html_links(src: dict) -> list[dict]:
+    """For employers with no feed: read the vacancies page, follow every link
+    whose address matches `link_pattern`, and take the title and text from
+    each advert page. The place comes from `default_location`."""
+    doc = fetch(src["url"]).decode("utf-8", "replace")
+    pattern = re.compile(src["link_pattern"])
+    skip = re.compile(src["exclude_pattern"]) if src.get("exclude_pattern") else None
+    links = []
+    for href in re.findall(r'href="([^"#?]+)', doc):
+        if pattern.search(href) and not (skip and skip.search(href)):
+            full = urllib.parse.urljoin(src["url"], href)
+            if full not in links:
+                links.append(full)
+    out = []
+    for link in links[:40]:
+        try:
+            title, text = page_text_after_heading(fetch(link).decode("utf-8", "replace"))
+        except Exception as err:
+            print(f"    could not read {link}: {err}")
+            continue
+        out.append(raw(
+            sid=link.rstrip("/").rsplit("/", 1)[-1],
+            title=title,
+            location=src.get("default_location", ""),
+            url=link,
+            description=text,
+        ))
+    return out
+
+
+def google_careers(src: dict) -> list[dict]:
+    """Google's careers search (used for Google DeepMind). The search address
+    in `url` already restricts results to the United Kingdom."""
+    out, seen = [], set()
+    for page in range(1, 9):
+        doc = fetch(f"{src['url']}&page={page}").decode("utf-8", "replace")
+        found = 0
+        for chunk in re.split(r"<h3[ >]", doc)[1:]:
+            link = re.search(r"jobs/results/(\d+)-[a-z0-9-]+", chunk)
+            if not link or link.group(1) in seen:
+                continue
+            seen.add(link.group(1))
+            found += 1
+            head, _, rest = chunk.partition("</h3>")
+            title = to_text("<h3 " + head)
+            title = re.sub(r",\s*(Google )?DeepMind$", "", title).strip()
+            place_match = re.search(r">([^<>;]{2,40}, UK)<", rest)
+            cut = rest.find("jobs/results/")
+            out.append(raw(
+                sid=link.group(1),
+                title=title,
+                location=place_match.group(1) if place_match
+                else src.get("default_location", "United Kingdom"),
+                url="https://www.google.com/about/careers/applications/" + link.group(0),
+                description=to_text(rest[:cut] if cut > 0 else rest),
+            ))
+        if not found:
+            break
+    return out
+
+
 ADAPTERS = {
     "greenhouse": greenhouse, "ashby": ashby, "lever": lever,
     "workable": workable, "recruitee": recruitee,
     "smartrecruiters": smartrecruiters, "workday": workday, "rss": rss,
+    "pinpoint": pinpoint, "html": html_links, "google": google_careers,
 }
 
 
@@ -474,9 +581,22 @@ CORE_ROLE = rx(
     r"\b(econom\w*|econometric\w*|polic(y|ies)|societal|labou?r market\w*|"
     r"governance|social scien\w*|public affairs|government (affairs|relations)|"
     r"geopolitic\w*|international (affairs|relations)|regulat\w+|competition|"
-    r"antitrust|forecast\w*|futures?|think tank|political|public sector|"
-    r"macro\w*|productivity|industrial strategy|workforce|"
+    r"antitrust|forecast\w*|think tank|political|"
+    r"macro\w*|productivity|industrial strategy|"
     r"impact (assessment|evaluation|analysis))\b")
+# ...except these, which are never right for this board even when the title
+# also says "policy" or "economics" (e.g. "Recruiter, Policy").
+NEVER = rx(
+    r"\b(engineer\w*|developer|architect|counsel|legal|lawyer|solicitor|"
+    r"recruit\w*|sales|account (executive|manager)|marketing|design(er)?|"
+    r"customer|solutions?|deployment|data governance|corporate governance|"
+    r"insurance|claims|underwrit\w*|nurse|clinical|payroll|accountant)\b")
+# At AI companies, the only non-economics titles that are kept.
+COMPANY_ROLE = rx(
+    r"\b(pricing|market (research|analysis|intelligence|insights?)|"
+    r"(strategy|research|insights?|data|business|market|operations research) analyst|"
+    r"strategy (associate|intern)|economic\w*|social impact|"
+    r"research (assistant|associate) (,|-|–)? ?(econom|polic|societ))")
 # Titles that might be relevant, depending on the rest of the advert.
 BROAD_ROLE = rx(
     r"\b(research(er)?|analyst|analysis|analytics|strategy|strategist|"
@@ -621,16 +741,24 @@ def assess(job: dict, src: dict) -> tuple[dict | None, str]:
     if SENIOR_TITLE.search(title):
         return None, "senior title"
 
-    core = bool(CORE_ROLE.search(title))
-    broad = bool(BROAD_ROLE.search(title))
-    if not core and (OFF_TOPIC.search(title) or not broad):
-        return None, "role"
-    if core and re.search(r"\bengineer\w*|developer|counsel|recruit\w*|sales\b", title, re.I):
+    # Which titles count depends on the kind of employer (see sources.json):
+    #   ai-policy - an AI governance or policy organisation: any research,
+    #               analysis, programme or generalist role.
+    #   ai        - an AI company: economics and policy titles, plus a short
+    #               list of market-analysis titles.
+    #   general   - everyone else: as ai-policy, and the advert must be about AI.
+    kind_of_employer = src.get("focus", "general")
+    core = bool(CORE_ROLE.search(title)) and not NEVER.search(title)
+    if kind_of_employer == "ai":
+        suitable = core or (COMPANY_ROLE.search(title) and not OFF_TOPIC.search(title))
+    else:
+        suitable = core or (BROAD_ROLE.search(title) and not OFF_TOPIC.search(title))
+    if not suitable:
         return None, "role"
 
     if job.get("lazy") and not job["description"]:
         try:
-            job["description"] = job["lazy"]()
+            job["description"] = job["lazy"](job)
         except Exception as err:
             print(f"    could not read advert text for {title!r}: {err}")
     text = job["description"] or ""
@@ -643,20 +771,10 @@ def assess(job: dict, src: dict) -> tuple[dict | None, str]:
     if phd_required(text):
         return None, "PhD required"
 
-    ai_org = src.get("focus") == "ai"
     ai_in_title = bool(AI_CASED.search(title) or AI_WORDS.search(title))
     mentions = ai_mentions(text)
-    if ai_org:
-        # At an AI organisation every role is about AI; a broad title still
-        # has to be an economics/policy/research kind of role.
-        if not core and not re.search(
-                r"\b(research|analyst|strategy|strategist|fellow(ship)?|scholar|"
-                r"intern(ship)?|graduate|generalist|chief of staff|adviser|advisor|"
-                r"grants?|grantmaking|programme|program|pricing|data scien\w*|"
-                r"evaluation|writer|editor|communications|operations|associate|officer)\b",
-                title, re.I):
-            return None, "role"
-        focus = "AI role"
+    if kind_of_employer in ("ai", "ai-policy"):
+        focus = "AI role"       # at an AI organisation every role is about AI
     else:
         need = src.get("min_ai_mentions", 3)
         if ai_in_title:
