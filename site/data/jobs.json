@@ -1,8 +1,27 @@
 {
- "updated": "2026-11-16T13:47:30Z",
+ "updated": "2026-11-17T14:39:17Z",
  "new_days": 7,
  "max_years": 3,
  "jobs": [
+  {
+   "id": "aisafety-com-jobs-board:recnoifr3N9P7Vs5n",
+   "title": "Researcher, Technical AI Governance",
+   "employer": "Le Centre pour la Sécurité de l'IA",
+   "group": "thinktank",
+   "via": "AISafety.com jobs board",
+   "where": "Remote",
+   "location": "Remote (Europe)",
+   "url": "https://cesia.org/en/careers/technical-ai-governance-researcher/",
+   "posted": "2026-11-16",
+   "closes": "2026-12-15",
+   "salary": "€65,000 – €80,000",
+   "kind": "Job",
+   "level": "1 to 4 years' experience",
+   "focus": "AI role",
+   "summary": "Measure what AI developers and governments do about AI risk, using public data and methods that others can check.",
+   "checked": "2026-11-17",
+   "first_seen": "2026-11-17"
+  },
   {
    "id": "google-deepmind:91961567221818054",
    "title": "Research Scientist, FSF Risk Modeling and Governance",
@@ -19,7 +38,7 @@
    "level": "3+ years' experience",
    "focus": "AI role",
    "summary": "corporate_fare DeepMind place London, UK ; New York, NY, USA ; +2 more ; +1 more DeepMind | London, UK ; New York, NY, USA ; +2 more ; +1 more Minimum qualifications PhD in Economics, Philosophy, or a STEM subject, or equivalent practical experience.",
-   "checked": "2026-11-16",
+   "checked": "2026-11-17",
    "first_seen": "2026-11-15"
   },
   {
@@ -38,7 +57,7 @@
    "level": "3+ years' experience",
    "focus": "AI role",
    "summary": "corporate_fare DeepMind place London, UK DeepMind | London, UK Minimum qualifications PhD or equivalent advanced experience in a relevant technical, quantitative, or social-scientific field or equivalent practical research experience.",
-   "checked": "2026-11-16",
+   "checked": "2026-11-17",
    "first_seen": "2026-11-15"
   },
   {
@@ -57,7 +76,7 @@
    "level": "Experience not stated",
    "focus": "AI role",
    "summary": "No application deadline Apply The project specs What the three months look like How we'll support you Who we're looking for What it's like working at Forethought Compensation and structure Application process .footnotes]:hidden [&_.katex]:inline-flex…",
-   "checked": "2026-11-16",
+   "checked": "2026-11-17",
    "first_seen": "2026-11-15"
   },
   {
@@ -76,7 +95,7 @@
    "level": "Experience not stated",
    "focus": "AI role",
    "summary": "GovAI was founded to help decision-makers navigate the transition to a world with advanced AI, by producing rigorous research and fostering talent.",
-   "checked": "2026-11-16",
+   "checked": "2026-11-17",
    "first_seen": "2026-11-15"
   },
   {
@@ -95,7 +114,7 @@
    "level": "Experience not stated",
    "focus": "AI role",
    "summary": "GovAI was founded to help decision-makers navigate the transition to a world with advanced AI, by producing rigorous research and fostering talent.",
-   "checked": "2026-11-16",
+   "checked": "2026-11-17",
    "first_seen": "2026-11-15"
   },
   {
@@ -114,7 +133,7 @@
    "level": "Entry level",
    "focus": "Economics",
    "summary": "Please note that this role will close at 00:01 on 18th December, and therefore we advise getting your application in by no later than midnight on Thursday 17th December.",
-   "checked": "2026-11-16",
+   "checked": "2026-11-17",
    "first_seen": "2026-11-15"
   },
   {
@@ -133,7 +152,7 @@
    "level": "Entry level",
    "focus": "Economics",
    "summary": "Please note that this role will close at 00:01 on Friday, 18th December, and therefore we advise getting your application in by no later than midnight on Thursday, 17th December.",
-   "checked": "2026-11-16",
+   "checked": "2026-11-17",
    "first_seen": "2026-11-15"
   },
   {
@@ -152,7 +171,7 @@
    "level": "Experience not stated",
    "focus": "Economics",
    "summary": "to work on high profile projects, so you can apply the knowledge and skills you have acquired during your studies to help solve real world problems Competitive salary and extensive benefits package including defined contribution pension and health insurance…",
-   "checked": "2026-11-16",
+   "checked": "2026-11-17",
    "first_seen": "2026-11-15"
   },
   {
@@ -171,7 +190,7 @@
    "level": "Experience not stated",
    "focus": "AI role",
    "summary": "AISI's Technical Standards and Best Practice team identifies what best practice is needed to manage the most serious risks from frontier AI development and leverages AISI’s position to get it adopted.",
-   "checked": "2026-11-16",
+   "checked": "2026-11-17",
    "first_seen": "2026-11-15"
   },
   {
@@ -190,7 +209,7 @@
    "level": "Experience not stated",
    "focus": "AI role",
    "summary": "You make sure each fellowship cohort runs smoothly, from acceptance to the last day, so that fellows and Research Managers can focus on research. - Salary: £68,250–£95,500 per year. We may be able to pay more for exceptional candidates.",
-   "checked": "2026-11-16",
+   "checked": "2026-11-17",
    "first_seen": "2026-11-15"
   },
   {
@@ -209,7 +228,7 @@
    "level": "Experience not stated",
    "focus": "Economics",
    "summary": "to work with top law firms, corporations, government bodies and academics A very steep learning curve, coupled with a supportive and collaborative team The opportunity to take on a lot of responsibility and contribute very early on When drafting your…",
-   "checked": "2026-11-16",
+   "checked": "2026-11-17",
    "first_seen": "2026-11-15"
   },
   {
@@ -228,7 +247,7 @@
    "level": "Experience not stated",
    "focus": "Economics",
    "summary": "We pride ourselves on providing Analysts with an opportunity to make a significant impact from day one. As an Analyst you will become an integral part of the team with the crucial role of helping clients understand how competition works in their industry.",
-   "checked": "2026-11-16",
+   "checked": "2026-11-17",
    "first_seen": "2026-11-15"
   },
   {
@@ -247,7 +266,7 @@
    "level": "Entry level",
    "focus": "Economics",
    "summary": "We pride ourselves on providing Interns with an opportunity to make a significant impact from day one. As an Intern you will gain extensive hands-on experience of working at an economic consultancy.",
-   "checked": "2026-11-16",
+   "checked": "2026-11-17",
    "first_seen": "2026-11-15"
   },
   {
@@ -266,7 +285,7 @@
    "level": "Experience not stated",
    "focus": "Economics",
    "summary": "We are looking to hire Research Analysts who will have an opportunity to make a significant impact from day one. As a Research Analyst, you will become an integral part of a project team tasked with advising on the competitive impact of a merger or conduct.",
-   "checked": "2026-11-16",
+   "checked": "2026-11-17",
    "first_seen": "2026-11-15"
   },
   {
@@ -285,27 +304,27 @@
    "level": "Entry level",
    "focus": "Economics",
    "summary": "Examples of our work might involve the evaluation of climate change and energy policies, including emissions, renewable energy and energy efficiency policies;",
-   "checked": "2026-11-16",
+   "checked": "2026-11-17",
    "first_seen": "2026-11-15"
   },
   {
-   "id": "aisafety-com-jobs-board:recBAereLrJMur7uo",
+   "id": "aisafety-com-jobs-board:recZgV4vOFCBqi1BW",
    "title": "Contractor, Horizon Scanner, Coordinated Research Programs",
    "employer": "Principles of Intelligence",
    "group": "thinktank",
    "via": "AISafety.com jobs board",
    "where": "Remote",
    "location": "Remote",
-   "url": "https://princint.ai/now-hiring-horizon-scanner-contractor-coordinated-research-programs/",
+   "url": "http://princint.ai/now-hiring-horizon-scanner-contractor-coordinated-research-programs",
    "posted": "2026-10-19",
    "closes": "2026-12-04",
-   "salary": "$25,000 – $38,000",
+   "salary": "$25,000 – $38,000 (4 months)",
    "kind": "Job",
    "level": "1 to 4 years' experience",
    "focus": "AI role",
-   "summary": "Map a research problem space and develop a roadmap for one of four new Coordinated Research Programs in AI safety.",
-   "checked": "2026-11-16",
-   "first_seen": "2026-11-15"
+   "summary": "Conduct horizon scanning over a 4-month contract for a new Coordinated Research Program, mapping the scientific landscape and key expertise communities.",
+   "checked": "2026-11-17",
+   "first_seen": "2026-11-17"
   },
   {
    "id": "scale-ai:4744402005",
@@ -323,7 +342,7 @@
    "level": "Experience not stated",
    "focus": "AI role",
    "summary": "The Human Frontier Collective (HFC) brings researchers and scientists together to tackle consequential problems in AI. In partnership with the Preparedness and Policy research team , we are building a small cohort of researchers to work on the empirical…",
-   "checked": "2026-11-16",
+   "checked": "2026-11-17",
    "first_seen": "2026-11-15"
   },
   {
@@ -342,7 +361,7 @@
    "level": "Entry level",
    "focus": "Economics",
    "summary": "Our Summer Analyst/Associate Internship program mirrors the analyst experience to give you an understanding of our business and experience project work at Charles River Associates.",
-   "checked": "2026-11-16",
+   "checked": "2026-11-17",
    "first_seen": "2026-11-15"
   },
   {
@@ -361,7 +380,7 @@
    "level": "Entry level",
    "focus": "Economics",
    "summary": "We are looking for an Intern to join our London team - start date flexible between now and Spring 2027 for a period of up to 6 months. Interns typically join during or shortly after completing their Master’s degree.",
-   "checked": "2026-11-16",
+   "checked": "2026-11-17",
    "first_seen": "2026-11-15"
   },
   {
@@ -380,7 +399,7 @@
    "level": "Entry level",
    "focus": "Economics",
    "summary": "The Analyst position is the entry-level position for applicants with an undergraduate qualification in economics. Analysts work closely with senior consultants, scholars and industry experts on project teams, and will have the opportunity to immediately work…",
-   "checked": "2026-11-16",
+   "checked": "2026-11-17",
    "first_seen": "2026-11-15"
   },
   {
@@ -399,7 +418,7 @@
    "level": "Experience not stated",
    "focus": "Economics",
    "summary": "The Consulting Associate position is the entry-level position for applicants with a postgraduate qualification in economics. Consulting Associates work closely with senior consultants, scholars and industry experts on project teams, and will have the…",
-   "checked": "2026-11-16",
+   "checked": "2026-11-17",
    "first_seen": "2026-11-15"
   },
   {
@@ -418,7 +437,7 @@
    "level": "Experience not stated",
    "focus": "AI role",
    "summary": "To maintain and improve these activities, FLF needs situational awareness, insight, and generative vision: this is where researchers come in.",
-   "checked": "2026-11-16",
+   "checked": "2026-11-17",
    "first_seen": "2026-11-15"
   },
   {
@@ -437,7 +456,7 @@
    "level": "Entry level",
    "focus": "Economics",
    "summary": "Placement positions are available in the following areas of the business: Macro Forecasting & Analysis (London) Using the Oxford Economics Global Economic Model, the Macro Forecasting & Analysis team produces forecasts for GDP, inflation, interest rates and…",
-   "checked": "2026-11-16",
+   "checked": "2026-11-17",
    "first_seen": "2026-11-15"
   },
   {
@@ -456,7 +475,7 @@
    "level": "Entry level",
    "focus": "Economics",
    "summary": "As a Assistant Economist, you will be working closely with experienced economists and will be expected to take responsibility for your work from an early stage.",
-   "checked": "2026-11-16",
+   "checked": "2026-11-17",
    "first_seen": "2026-11-15"
   },
   {
@@ -475,7 +494,7 @@
    "level": "Experience not stated",
    "focus": "Economics",
    "summary": "Examples of our work might involve the evaluation of climate change and energy policies, including emissions, renewable energy and energy efficiency policies;",
-   "checked": "2026-11-16",
+   "checked": "2026-11-17",
    "first_seen": "2026-11-15"
   },
   {
@@ -494,7 +513,7 @@
    "level": "Experience not stated",
    "focus": "AI role",
    "summary": "As a Regional Research Economist at Anthropic, you will work to collaborate with governments, academia, industry, and civil society in your region to measure and understand AI's effects on the economy and explore research-driven policy interventions.",
-   "checked": "2026-11-16",
+   "checked": "2026-11-17",
    "first_seen": "2026-11-15"
   },
   {
@@ -513,7 +532,7 @@
    "level": "Experience not stated",
    "focus": "AI role",
    "summary": "About Anthropic Anthropic’s mission is to create reliable, interpretable, and steerable AI systems. We want AI to be safe and beneficial for our users and for society as a whole.",
-   "checked": "2026-11-16",
+   "checked": "2026-11-17",
    "first_seen": "2026-11-15"
   }
  ],
@@ -523,7 +542,7 @@
    "group": "academia",
    "ok": true,
    "careers": "https://www.jobs.cam.ac.uk/",
-   "listed": 175,
+   "listed": 178,
    "kept": 0
   },
   {
@@ -531,8 +550,8 @@
    "group": "boards",
    "ok": true,
    "careers": "https://www.aisafety.com/jobs",
-   "listed": 161,
-   "kept": 1
+   "listed": 160,
+   "kept": 2
   },
   {
    "name": "AI Security Institute",
@@ -555,7 +574,7 @@
    "group": "government",
    "ok": true,
    "careers": "https://www.bankofengland.co.uk/careers",
-   "listed": 12,
+   "listed": 6,
    "kept": 0
   },
   {
@@ -571,7 +590,7 @@
    "group": "government",
    "ok": true,
    "careers": "https://ai.gov.uk/opportunities",
-   "listed": 1,
+   "listed": 2,
    "kept": 0
   },
   {
@@ -587,7 +606,7 @@
    "group": "government",
    "ok": true,
    "careers": "https://ofcom.wd3.myworkdayjobs.com/Ofcom_Careers",
-   "listed": 6,
+   "listed": 7,
    "kept": 2
   },
   {
@@ -595,7 +614,7 @@
    "group": "government",
    "ok": true,
    "careers": "https://www.ukri.org/about-us/work-for-us/",
-   "listed": 23,
+   "listed": 24,
    "kept": 0
   },
   {
@@ -611,7 +630,7 @@
    "group": "industry",
    "ok": true,
    "careers": "https://job-boards.greenhouse.io/charlesriverassociates",
-   "listed": 86,
+   "listed": 87,
    "kept": 3
   },
   {
@@ -627,7 +646,7 @@
    "group": "industry",
    "ok": true,
    "careers": "https://job-boards.greenhouse.io/deliveroo",
-   "listed": 185,
+   "listed": 182,
    "kept": 0
   },
   {
@@ -683,7 +702,7 @@
    "group": "industry",
    "ok": true,
    "careers": "https://wise.jobs/",
-   "listed": 211,
+   "listed": 208,
    "kept": 0
   },
   {
@@ -691,7 +710,7 @@
    "group": "labs",
    "ok": true,
    "careers": "https://www.anthropic.com/careers",
-   "listed": 661,
+   "listed": 660,
    "kept": 2
   },
   {
@@ -699,7 +718,7 @@
    "group": "labs",
    "ok": true,
    "careers": "https://jobs.ashbyhq.com/cohere",
-   "listed": 122,
+   "listed": 126,
    "kept": 0
   },
   {
@@ -707,7 +726,7 @@
    "group": "labs",
    "ok": true,
    "careers": "https://jobs.ashbyhq.com/elevenlabs",
-   "listed": 122,
+   "listed": 121,
    "kept": 0
   },
   {
@@ -715,7 +734,7 @@
    "group": "labs",
    "ok": true,
    "careers": "https://jobs.ashbyhq.com/faculty",
-   "listed": 96,
+   "listed": 95,
    "kept": 0
   },
   {
@@ -731,7 +750,7 @@
    "group": "labs",
    "ok": true,
    "careers": "https://deepmind.google/careers/",
-   "listed": 42,
+   "listed": 41,
    "kept": 2
   },
   {
@@ -739,7 +758,7 @@
    "group": "labs",
    "ok": true,
    "careers": "https://jobs.ashbyhq.com/harvey",
-   "listed": 388,
+   "listed": 387,
    "kept": 0
   },
   {
@@ -755,7 +774,7 @@
    "group": "labs",
    "ok": true,
    "careers": "https://mistral.ai/careers",
-   "listed": 251,
+   "listed": 252,
    "kept": 0
   },
   {
@@ -763,7 +782,7 @@
    "group": "labs",
    "ok": true,
    "careers": "https://openai.com/careers",
-   "listed": 839,
+   "listed": 840,
    "kept": 0
   },
   {
@@ -771,7 +790,7 @@
    "group": "labs",
    "ok": true,
    "careers": "https://jobs.ashbyhq.com/perplexity",
-   "listed": 143,
+   "listed": 148,
    "kept": 0
   },
   {
@@ -779,7 +798,7 @@
    "group": "labs",
    "ok": true,
    "careers": "https://poly.ai/careers",
-   "listed": 4,
+   "listed": 5,
    "kept": 0
   },
   {
@@ -787,7 +806,7 @@
    "group": "labs",
    "ok": true,
    "careers": "https://job-boards.greenhouse.io/scaleai",
-   "listed": 170,
+   "listed": 168,
    "kept": 1
   },
   {
@@ -795,7 +814,7 @@
    "group": "labs",
    "ok": true,
    "careers": "https://job-boards.greenhouse.io/stabilityai",
-   "listed": 2,
+   "listed": 3,
    "kept": 0
   },
   {
@@ -819,7 +838,7 @@
    "group": "labs",
    "ok": true,
    "careers": "https://jobs.ashbyhq.com/wayve",
-   "listed": 164,
+   "listed": 154,
    "kept": 0
   },
   {
@@ -915,7 +934,7 @@
    "group": "thinktank",
    "ok": true,
    "careers": "https://futureoflife.org/about-us/careers/",
-   "listed": 12,
+   "listed": 11,
    "kept": 1
   },
   {
@@ -939,7 +958,7 @@
    "group": "thinktank",
    "ok": true,
    "careers": "https://jobs.lever.co/metr",
-   "listed": 4,
+   "listed": 5,
    "kept": 0
   },
   {
@@ -971,7 +990,7 @@
    "group": "thinktank",
    "ok": true,
    "careers": "https://institute.global/careers",
-   "listed": 9,
+   "listed": 7,
    "kept": 0
   },
   {
