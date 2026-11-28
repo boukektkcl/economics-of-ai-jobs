@@ -1,8 +1,65 @@
 {
- "updated": "2026-11-27T15:17:27Z",
+ "updated": "2026-11-28T14:19:47Z",
  "new_days": 7,
  "max_years": 3,
  "jobs": [
+  {
+   "id": "longview-philanthropy:4eb92307-25f6-44ad-b2c1-30f2f1ab92f9",
+   "title": "Business Operations Analyst",
+   "employer": "Longview Philanthropy",
+   "group": "thinktank",
+   "via": "",
+   "where": "London",
+   "location": "London (+3 other)",
+   "url": "https://jobs.ashbyhq.com/longview/4eb92307-25f6-44ad-b2c1-30f2f1ab92f9",
+   "posted": "2026-11-27",
+   "closes": null,
+   "salary": "$85K – $105K",
+   "kind": "Job",
+   "level": "Experience not stated",
+   "focus": "AI-related",
+   "summary": "- You would run a set of operational areas day-to-day: the ops requests queue, logistics for all-staff meetings and sprint planning, and support for our offices. Your manager sets priorities and reviews your work. - You would keep our knowledge easy to find.",
+   "checked": "2026-11-28",
+   "first_seen": "2026-11-28"
+  },
+  {
+   "id": "frontier-economics:XMLNAME-2027-Graduate-Economic-Analyst---London_JR10236",
+   "title": "2027 Graduate Economic Analyst - London",
+   "employer": "Frontier Economics",
+   "group": "industry",
+   "via": "",
+   "where": "London",
+   "location": "London",
+   "url": "https://frontiereconomics.wd3.myworkdayjobs.com/en-US/Frontier_Economics_Careers/job/London/XMLNAME-2027-Graduate-Economic-Analyst---London_JR10236",
+   "posted": "2026-11-27",
+   "closes": null,
+   "salary": "",
+   "kind": "Job",
+   "level": "Entry level",
+   "focus": "AI-related",
+   "summary": "Our Graduate Analyst programme runs for two years and is designed for those with a Master's degree with a strong focus on Economics. The work is varied.",
+   "checked": "2026-11-28",
+   "first_seen": "2026-11-28"
+  },
+  {
+   "id": "frontier-economics:XMLNAME-2027-Undergraduate-Economic-Analyst---London_JR10247",
+   "title": "2027 Undergraduate Economic Analyst - London",
+   "employer": "Frontier Economics",
+   "group": "industry",
+   "via": "",
+   "where": "London",
+   "location": "London",
+   "url": "https://frontiereconomics.wd3.myworkdayjobs.com/en-US/Frontier_Economics_Careers/job/London/XMLNAME-2027-Undergraduate-Economic-Analyst---London_JR10247",
+   "posted": "2026-11-27",
+   "closes": null,
+   "salary": "",
+   "kind": "Job",
+   "level": "2+ years' experience",
+   "focus": "AI-related",
+   "summary": "Our Undergraduate Analyst programme is a two-year route into economic consulting for people with an Economics-focused Bachelor's degree.",
+   "checked": "2026-11-28",
+   "first_seen": "2026-11-28"
+  },
   {
    "id": "aisafety-com-jobs-board:reckLvTVJq4YR7t9B",
    "title": "Researcher, Emerging Technology and Industry Practice",
@@ -19,7 +76,7 @@
    "level": "1 to 4 years' experience",
    "focus": "AI role",
    "summary": "Support international AI governance research, focusing on private governance mechanisms like assurance, audit and standards.",
-   "checked": "2026-11-27",
+   "checked": "2026-11-28",
    "first_seen": "2026-11-25"
   },
   {
@@ -38,7 +95,7 @@
    "level": "Entry level",
    "focus": "Economics",
    "summary": "The Assistant Technology Change Delivery Analyst supports the effective delivery of User Acceptance Testing (UAT) across change initiatives within Banking Operations Strategy and Change (BOSCH).",
-   "checked": "2026-11-27",
+   "checked": "2026-11-28",
    "first_seen": "2026-11-26"
   },
   {
@@ -57,7 +114,7 @@
    "level": "Experience not stated",
    "focus": "AI role",
    "summary": "Mentor a team of vetted fellows through a three-month remote project on reducing risks from advanced AI.",
-   "checked": "2026-11-27",
+   "checked": "2026-11-28",
    "first_seen": "2026-11-18"
   },
   {
@@ -76,7 +133,7 @@
    "level": "1 to 4 years' experience",
    "focus": "AI role",
    "summary": "Measure what AI developers and governments do about AI risk, using public data and methods that others can check.",
-   "checked": "2026-11-27",
+   "checked": "2026-11-28",
    "first_seen": "2026-11-17"
   },
   {
@@ -95,7 +152,7 @@
    "level": "3+ years' experience",
    "focus": "AI role",
    "summary": "corporate_fare DeepMind place London, UK ; New York, NY, USA ; +2 more ; +1 more DeepMind | London, UK ; New York, NY, USA ; +2 more ; +1 more Minimum qualifications PhD in Economics, Philosophy, or a STEM subject, or equivalent practical experience.",
-   "checked": "2026-11-27",
+   "checked": "2026-11-28",
    "first_seen": "2026-11-15"
   },
   {
@@ -114,7 +171,7 @@
    "level": "3+ years' experience",
    "focus": "AI role",
    "summary": "corporate_fare DeepMind place London, UK DeepMind | London, UK Minimum qualifications PhD or equivalent advanced experience in a relevant technical, quantitative, or social-scientific field or equivalent practical research experience.",
-   "checked": "2026-11-27",
+   "checked": "2026-11-28",
    "first_seen": "2026-11-15"
   },
   {
@@ -133,7 +190,7 @@
    "level": "Experience not stated",
    "focus": "AI role",
    "summary": "No application deadline Apply The project specs What the three months look like How we'll support you Who we're looking for What it's like working at Forethought Compensation and structure Application process .footnotes]:hidden [&_.katex]:inline-flex…",
-   "checked": "2026-11-27",
+   "checked": "2026-11-28",
    "first_seen": "2026-11-15"
   },
   {
@@ -152,7 +209,7 @@
    "level": "Entry level",
    "focus": "Economics",
    "summary": "Please note that this role will close at 00:01 on 18th December, and therefore we advise getting your application in by no later than midnight on Thursday 17th December.",
-   "checked": "2026-11-27",
+   "checked": "2026-11-28",
    "first_seen": "2026-11-15"
   },
   {
@@ -171,7 +228,7 @@
    "level": "Entry level",
    "focus": "Economics",
    "summary": "Please note that this role will close at 00:01 on Friday, 18th December, and therefore we advise getting your application in by no later than midnight on Thursday, 17th December.",
-   "checked": "2026-11-27",
+   "checked": "2026-11-28",
    "first_seen": "2026-11-15"
   },
   {
@@ -190,7 +247,7 @@
    "level": "Experience not stated",
    "focus": "Economics",
    "summary": "to work on high profile projects, so you can apply the knowledge and skills you have acquired during your studies to help solve real world problems Competitive salary and extensive benefits package including defined contribution pension and health insurance…",
-   "checked": "2026-11-27",
+   "checked": "2026-11-28",
    "first_seen": "2026-11-15"
   },
   {
@@ -209,7 +266,7 @@
    "level": "Experience not stated",
    "focus": "AI role",
    "summary": "AISI's Technical Standards and Best Practice team identifies what best practice is needed to manage the most serious risks from frontier AI development and leverages AISI’s position to get it adopted.",
-   "checked": "2026-11-27",
+   "checked": "2026-11-28",
    "first_seen": "2026-11-15"
   },
   {
@@ -228,7 +285,7 @@
    "level": "Experience not stated",
    "focus": "AI role",
    "summary": "You make sure each fellowship cohort runs smoothly, from acceptance to the last day, so that fellows and Research Managers can focus on research. - Salary: £68,250–£95,500 per year. We may be able to pay more for exceptional candidates.",
-   "checked": "2026-11-27",
+   "checked": "2026-11-28",
    "first_seen": "2026-11-15"
   },
   {
@@ -247,7 +304,7 @@
    "level": "Experience not stated",
    "focus": "Economics",
    "summary": "to work with top law firms, corporations, government bodies and academics A very steep learning curve, coupled with a supportive and collaborative team The opportunity to take on a lot of responsibility and contribute very early on When drafting your…",
-   "checked": "2026-11-27",
+   "checked": "2026-11-28",
    "first_seen": "2026-11-15"
   },
   {
@@ -266,7 +323,7 @@
    "level": "Experience not stated",
    "focus": "Economics",
    "summary": "We pride ourselves on providing Analysts with an opportunity to make a significant impact from day one. As an Analyst you will become an integral part of the team with the crucial role of helping clients understand how competition works in their industry.",
-   "checked": "2026-11-27",
+   "checked": "2026-11-28",
    "first_seen": "2026-11-15"
   },
   {
@@ -285,7 +342,7 @@
    "level": "Entry level",
    "focus": "Economics",
    "summary": "We pride ourselves on providing Interns with an opportunity to make a significant impact from day one. As an Intern you will gain extensive hands-on experience of working at an economic consultancy.",
-   "checked": "2026-11-27",
+   "checked": "2026-11-28",
    "first_seen": "2026-11-15"
   },
   {
@@ -304,7 +361,7 @@
    "level": "Experience not stated",
    "focus": "Economics",
    "summary": "We are looking to hire Research Analysts who will have an opportunity to make a significant impact from day one. As a Research Analyst, you will become an integral part of a project team tasked with advising on the competitive impact of a merger or conduct.",
-   "checked": "2026-11-27",
+   "checked": "2026-11-28",
    "first_seen": "2026-11-15"
   },
   {
@@ -323,7 +380,7 @@
    "level": "Entry level",
    "focus": "Economics",
    "summary": "Examples of our work might involve the evaluation of climate change and energy policies, including emissions, renewable energy and energy efficiency policies;",
-   "checked": "2026-11-27",
+   "checked": "2026-11-28",
    "first_seen": "2026-11-15"
   },
   {
@@ -342,7 +399,7 @@
    "level": "1 to 4 years' experience",
    "focus": "AI role",
    "summary": "Map a research problem space and develop a roadmap for one of four new Coordinated Research Programs in AI safety.",
-   "checked": "2026-11-27",
+   "checked": "2026-11-28",
    "first_seen": "2026-11-24"
   },
   {
@@ -361,7 +418,7 @@
    "level": "Entry level",
    "focus": "Economics",
    "summary": "Our Summer Analyst/Associate Internship program mirrors the analyst experience to give you an understanding of our business and experience project work at Charles River Associates.",
-   "checked": "2026-11-27",
+   "checked": "2026-11-28",
    "first_seen": "2026-11-15"
   },
   {
@@ -380,7 +437,7 @@
    "level": "Entry level",
    "focus": "Economics",
    "summary": "We are looking for an Intern to join our London team - start date flexible between now and Spring 2027 for a period of up to 6 months. Interns typically join during or shortly after completing their Master’s degree.",
-   "checked": "2026-11-27",
+   "checked": "2026-11-28",
    "first_seen": "2026-11-15"
   },
   {
@@ -399,7 +456,7 @@
    "level": "Entry level",
    "focus": "Economics",
    "summary": "The Analyst position is the entry-level position for applicants with an undergraduate qualification in economics. Analysts work closely with senior consultants, scholars and industry experts on project teams, and will have the opportunity to immediately work…",
-   "checked": "2026-11-27",
+   "checked": "2026-11-28",
    "first_seen": "2026-11-15"
   },
   {
@@ -418,7 +475,7 @@
    "level": "Experience not stated",
    "focus": "Economics",
    "summary": "The Consulting Associate position is the entry-level position for applicants with a postgraduate qualification in economics. Consulting Associates work closely with senior consultants, scholars and industry experts on project teams, and will have the…",
-   "checked": "2026-11-27",
+   "checked": "2026-11-28",
    "first_seen": "2026-11-15"
   },
   {
@@ -437,7 +494,7 @@
    "level": "Experience not stated",
    "focus": "AI role",
    "summary": "To maintain and improve these activities, FLF needs situational awareness, insight, and generative vision: this is where researchers come in.",
-   "checked": "2026-11-27",
+   "checked": "2026-11-28",
    "first_seen": "2026-11-15"
   },
   {
@@ -456,7 +513,7 @@
    "level": "Entry level",
    "focus": "Economics",
    "summary": "Placement positions are available in the following areas of the business: Macro Forecasting & Analysis (London) Using the Oxford Economics Global Economic Model, the Macro Forecasting & Analysis team produces forecasts for GDP, inflation, interest rates and…",
-   "checked": "2026-11-27",
+   "checked": "2026-11-28",
    "first_seen": "2026-11-15"
   },
   {
@@ -475,7 +532,7 @@
    "level": "Experience not stated",
    "focus": "AI role",
    "summary": "As a Regional Research Economist at Anthropic, you will work to collaborate with governments, academia, industry, and civil society in your region to measure and understand AI's effects on the economy and explore research-driven policy interventions.",
-   "checked": "2026-11-27",
+   "checked": "2026-11-28",
    "first_seen": "2026-11-15"
   },
   {
@@ -494,7 +551,7 @@
    "level": "Experience not stated",
    "focus": "AI role",
    "summary": "About Anthropic Anthropic’s mission is to create reliable, interpretable, and steerable AI systems. We want AI to be safe and beneficial for our users and for society as a whole.",
-   "checked": "2026-11-27",
+   "checked": "2026-11-28",
    "first_seen": "2026-11-15"
   }
  ],
@@ -504,7 +561,7 @@
    "group": "academia",
    "ok": true,
    "careers": "https://www.jobs.cam.ac.uk/",
-   "listed": 194,
+   "listed": 193,
    "kept": 0
   },
   {
@@ -536,7 +593,7 @@
    "group": "government",
    "ok": true,
    "careers": "https://www.bankofengland.co.uk/careers",
-   "listed": 13,
+   "listed": 14,
    "kept": 1
   },
   {
@@ -560,7 +617,7 @@
    "group": "government",
    "ok": true,
    "careers": "https://ico.org.uk/about-the-ico/jobs/vacancies/",
-   "listed": 3,
+   "listed": 4,
    "kept": 0
   },
   {
@@ -592,7 +649,7 @@
    "group": "industry",
    "ok": true,
    "careers": "https://job-boards.greenhouse.io/charlesriverassociates",
-   "listed": 92,
+   "listed": 93,
    "kept": 3
   },
   {
@@ -608,7 +665,7 @@
    "group": "industry",
    "ok": true,
    "careers": "https://job-boards.greenhouse.io/deliveroo",
-   "listed": 194,
+   "listed": 197,
    "kept": 0
   },
   {
@@ -616,15 +673,15 @@
    "group": "industry",
    "ok": true,
    "careers": "https://www.frontier-economics.com/uk/en/careers/",
-   "listed": 5,
-   "kept": 0
+   "listed": 9,
+   "kept": 2
   },
   {
    "name": "Monzo",
    "group": "industry",
    "ok": true,
    "careers": "https://job-boards.greenhouse.io/monzo",
-   "listed": 58,
+   "listed": 55,
    "kept": 0
   },
   {
@@ -648,7 +705,7 @@
    "group": "industry",
    "ok": true,
    "careers": "https://careers.oxfordeconomics.com/",
-   "listed": 22,
+   "listed": 23,
    "kept": 1
   },
   {
@@ -656,7 +713,7 @@
    "group": "industry",
    "ok": true,
    "careers": "https://jobs.lever.co/spotify",
-   "listed": 97,
+   "listed": 98,
    "kept": 0
   },
   {
@@ -680,7 +737,7 @@
    "group": "labs",
    "ok": true,
    "careers": "https://jobs.ashbyhq.com/cohere",
-   "listed": 122,
+   "listed": 121,
    "kept": 0
   },
   {
@@ -688,7 +745,7 @@
    "group": "labs",
    "ok": true,
    "careers": "https://jobs.ashbyhq.com/elevenlabs",
-   "listed": 108,
+   "listed": 109,
    "kept": 0
   },
   {
@@ -696,7 +753,7 @@
    "group": "labs",
    "ok": true,
    "careers": "https://jobs.ashbyhq.com/faculty",
-   "listed": 89,
+   "listed": 92,
    "kept": 0
   },
   {
@@ -728,7 +785,7 @@
    "group": "labs",
    "ok": true,
    "careers": "https://job-boards.greenhouse.io/isomorphiclabs",
-   "listed": 37,
+   "listed": 38,
    "kept": 0
   },
   {
@@ -736,7 +793,7 @@
    "group": "labs",
    "ok": true,
    "careers": "https://mistral.ai/careers",
-   "listed": 267,
+   "listed": 268,
    "kept": 0
   },
   {
@@ -800,7 +857,7 @@
    "group": "labs",
    "ok": true,
    "careers": "https://jobs.ashbyhq.com/wayve",
-   "listed": 150,
+   "listed": 151,
    "kept": 0
   },
   {
@@ -824,7 +881,7 @@
    "group": "thinktank",
    "ok": true,
    "careers": "https://jobs.ashbyhq.com/bluedot",
-   "listed": 1,
+   "listed": 4,
    "kept": 0
   },
   {
@@ -912,8 +969,8 @@
    "group": "thinktank",
    "ok": true,
    "careers": "https://www.longview.org/careers/",
-   "listed": 0,
-   "kept": 0
+   "listed": 1,
+   "kept": 1
   },
   {
    "name": "METR",
